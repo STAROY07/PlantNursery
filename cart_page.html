@@ -1,119 +1,108 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Shopping Cart</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Online Plant Nursery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4fff4;
-            padding: 20px;
+            font-family: 'Poppins', sans-serif;
+            background: url('Images/bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
         }
-        h1 {
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 50, 0, 0.45);
+            z-index: -1;
+        }
+
+        header {
+            background: rgba(0, 80, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
             text-align: center;
-            color: #2a7a2a;
+            color: white;
         }
-        .cart-container {
-            max-width: 900px;
-            margin: auto;
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
         }
-        .cart-item {
+
+        nav {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            background-color: #ffffff;
-            border: 1px solid #cceccc;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 2px 2px 6px rgba(0,0,0,0.05);
+            justify-content: center;
+            background: rgba(0, 100, 0, 0.6);
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
         }
-        .cart-item img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-        .cart-details {
-            flex-grow: 1;
-            margin-left: 15px;
-        }
-        .cart-details h3 {
-            margin: 0;
-        }
-        .cart-details p {
-            margin: 5px 0;
-        }
-        .quantity {
-            width: 50px;
-            padding: 5px;
-        }
-        .remove-btn {
-            background-color: #ff4d4d;
+
+        nav a {
             color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
+            text-decoration: none;
+            padding: 14px 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            transition: 0.3s;
         }
-        .cart-summary {
-            text-align: right;
-            margin-top: 30px;
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            border-radius: 6px;
         }
-        .cart-summary h2 {
-            color: #2a7a2a;
+
+        .cart-wrapper {
+            max-width: 900px;
+            margin: 35px auto;
+            padding: 0 20px;
         }
-        .checkout-btn {
-            background-color: #4CAF50;
+
+        .cart-title {
             color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
         }
     </style>
 </head>
 <body>
-    <h1>Your Shopping Cart</h1>
-    <div class="cart-container">
 
-        <div class="cart-item">
-            <img src="rose.jpg" alt="Rose Plant">
-            <div class="cart-details">
-                <h3>Rose Plant</h3>
-                <p>Price: ₹499</p>
-                <label>Qty: <input type="number" value="1" class="quantity" min="1"></label>
-            </div>
-            <button class="remove-btn">Remove</button>
-        </div>
+<header>
+    <h1><i class="fa-solid fa-leaf" style="color: #a5d6a7;"></i> Online Plant Nursery</h1>
+</header>
 
-        <div class="cart-item">
-            <img src="money_plant.jpg" alt="Money Plant">
-            <div class="cart-details">
-                <h3>Money Plant</h3>
-                <p>Price: ₹299</p>
-                <label>Qty: <input type="number" value="2" class="quantity" min="1"></label>
-            </div>
-            <button class="remove-btn">Remove</button>
-        </div>
+<nav>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="Flower_Plants_Shop.html"><i class="fa-solid fa-spa"></i> Flower Plants</a>
+    <a href="Fruit_Plants_Shop.html"><i class="fa-solid fa-apple-whole"></i> Fruit Plants</a>
+    <a href="Medicinal_Plants_Shop.html"><i class="fa-solid fa-seedling"></i> Medicinal Plants</a>
+    <a href="plant_diseases_100.html"><i class="fa-solid fa-shield-virus"></i> Diseases</a>
+    <a href="cart_page.html"><i class="fa-solid fa-cart-shopping"></i> Cart (<span id="cart-badge" class="cart-badge" style="display:none;">0</span>)</a>
+    <a href="orders.html"><i class="fa-solid fa-box"></i> Orders</a>
+</nav>
 
-        <div class="cart-item">
-            <img src="tulsi.jpg" alt="Tulsi Plant">
-            <div class="cart-details">
-                <h3>Tulsi Plant</h3>
-                <p>Price: ₹199</p>
-                <label>Qty: <input type="number" value="1" class="quantity" min="1"></label>
-            </div>
-            <button class="remove-btn">Remove</button>
-        </div>
-
-        <div class="cart-summary">
-            <h2>Total: ₹1296</h2>
-            <button class="checkout-btn">Proceed to Checkout</button>
-        </div>
-
+<div class="cart-wrapper">
+    <h2 class="cart-title"><i class="fa-solid fa-cart-shopping"></i> Your Shopping Cart</h2>
+    <div class="cart-container" id="cart-container">
+        <!-- Rendered dynamically by js/main.js -->
     </div>
+</div>
+
+<script src="js/main.js"></script>
 </body>
 </html>

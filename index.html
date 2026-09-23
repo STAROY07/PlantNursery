@@ -88,6 +88,16 @@ nav a:hover {
   border-radius: 6px;
 }
 
+.cart-badge, .wishlist-badge {
+  background: #ff4757;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
 /* LOGIN */
 .login-menu {
   position: absolute;
@@ -110,7 +120,7 @@ nav a:hover {
   background: white;
   border-radius: 8px;
   box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
-  min-width: 150px;
+  min-width: 160px;
   z-index: 10;
   overflow: hidden;
 }
@@ -251,19 +261,23 @@ footer {
 
 <nav>
   <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
-  <a href="plant_info_100.html"><i class="fa-solid fa-shield-virus"></i> Diseases</a>
+  <a href="plant_diseases_100.html"><i class="fa-solid fa-shield-virus"></i> Diseases</a>
   <a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a>
-  <a href="FAQ.htm"><i class="fa-solid fa-circle-question"></i> FAQ</a>
-  <a href="cart_page.html"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
-  <a href="plants.html"><i class="fa-solid fa-seedling"></i> Plants</a>
-  <a href="Register.html"><i class="fa-solid fa-user"></i> Login / Register</a>
+  <a href="contact.html"><i class="fa-solid fa-comments"></i> Feedback</a>
+  <a href="cart_page.html"><i class="fa-solid fa-cart-shopping"></i> Cart (<span id="cart-badge" class="cart-badge" style="display:none;">0</span>)</a>
+  <a href="orders.html"><i class="fa-solid fa-box"></i> Orders</a>
+  <a href="track_order.html"><i class="fa-solid fa-truck"></i> Track</a>
+  <a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>
 
   <div class="login-menu">
     <button class="login-btn" title="Account Menu">
       <img src="Images/login_icon.jpeg" width="38" height="38" style="border-radius: 50%; object-fit: cover;" alt="Account" onerror="this.style.display='none'">
     </button>
     <div class="dropdown">
+      <a href="login.html"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
       <a href="Register.html"><i class="fa-solid fa-user-plus"></i> Register</a>
+      <a href="orders.html"><i class="fa-solid fa-box"></i> My Orders</a>
+      <a href="wishlist.html"><i class="fa-solid fa-heart"></i> Wishlist</a>
       <a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
     </div>
   </div>
@@ -276,10 +290,11 @@ footer {
 <div class="section">
   <h3>Explore Our Plant Categories</h3>
   <div class="buttons">
-    <a href="plant_shop_100_plants.html"><i class="fa-solid fa-spa"></i> Flower &amp; Fruit Plants</a>
-    <a href="indoor_plants.html"><i class="fa-solid fa-seedling"></i> Indoor &amp; Medicinal Plants</a>
-    <a href="plant_disease_info.html"><i class="fa-solid fa-notes-medical"></i> Plant Diseases &amp; Cure</a>
-    <a href="plants.html"><i class="fa-solid fa-wind"></i> Purification Plants</a>
+    <a href="Flower_Plants_Shop.html"><i class="fa-solid fa-spa"></i> Flower Plants</a>
+    <a href="Fruit_Plants_Shop.html"><i class="fa-solid fa-apple-whole"></i> Fruit Plants</a>
+    <a href="Medicinal_Plants_Shop.html"><i class="fa-solid fa-seedling"></i> Medicinal Plants</a>
+    <a href="plant_diseases_100.html"><i class="fa-solid fa-notes-medical"></i> Plant Diseases &amp; Cure</a>
+    <a href="air_purification_plants_detailed.html"><i class="fa-solid fa-wind"></i> Purification Plants</a>
   </div>
 </div>
 
@@ -287,5 +302,6 @@ footer {
   &copy; 2025 Online Plant Nursery. All rights reserved.
 </footer>
 
+<script src="js/main.js"></script>
 </body>
 </html>

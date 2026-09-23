@@ -1,4 +1,146 @@
+# Netlify Redirects and Rewrites
+
 [[redirects]]
-  from = "/"
+  from = "/index.php"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/plant_diseases_100.php"
+  to = "/plant_diseases_100.html"
+  status = 200
+
+[[redirects]]
+  from = "/plant_diseases_100"
+  to = "/plant_diseases_100.html"
+  status = 200
+
+[[redirects]]
+  from = "/Flower_Plants_Shop.php"
+  to = "/Flower_Plants_Shop.html"
+  status = 200
+
+[[redirects]]
+  from = "/Flower_Plants_Shop"
+  to = "/Flower_Plants_Shop.html"
+  status = 200
+
+[[redirects]]
+  from = "/Fruit_Plants_Shop.php"
+  to = "/Fruit_Plants_Shop.html"
+  status = 200
+
+[[redirects]]
+  from = "/Fruit_Plants_Shop"
+  to = "/Fruit_Plants_Shop.html"
+  status = 200
+
+[[redirects]]
+  from = "/Medicinal_Plants_Shop.php"
+  to = "/Medicinal_Plants_Shop.html"
+  status = 200
+
+[[redirects]]
+  from = "/Medicinal_Plants_Shop"
+  to = "/Medicinal_Plants_Shop.html"
+  status = 200
+
+[[redirects]]
+  from = "/air_purification_plants_detailed.php"
+  to = "/air_purification_plants_detailed.html"
+  status = 200
+
+[[redirects]]
+  from = "/air_purification_plants_detailed"
+  to = "/air_purification_plants_detailed.html"
+  status = 200
+
+[[redirects]]
+  from = "/login.php"
+  to = "/login.html"
+  status = 200
+
+[[redirects]]
+  from = "/login"
+  to = "/login.html"
+  status = 200
+
+[[redirects]]
+  from = "/Register.php"
+  to = "/Register.html"
+  status = 200
+
+[[redirects]]
+  from = "/register"
+  to = "/Register.html"
+  status = 200
+
+[[redirects]]
+  from = "/cart.php"
+  to = "/cart_page.html"
+  status = 200
+
+[[redirects]]
+  from = "/cart"
+  to = "/cart_page.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact.php"
+  to = "/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/contact.html"
+  status = 200
+
+[[redirects]]
+  from = "/orders.php"
+  to = "/orders.html"
+  status = 200
+
+[[redirects]]
+  from = "/orders"
+  to = "/orders.html"
+  status = 200
+
+[[redirects]]
+  from = "/track_order.php"
+  to = "/track_order.html"
+  status = 200
+
+[[redirects]]
+  from = "/track_order"
+  to = "/track_order.html"
+  status = 200
+
+[[redirects]]
+  from = "/profile.php"
+  to = "/profile.html"
+  status = 200
+
+[[redirects]]
+  from = "/profile"
+  to = "/profile.html"
+  status = 200
+
+[[redirects]]
+  from = "/wishlist.php"
+  to = "/wishlist.html"
+  status = 200
+
+[[redirects]]
+  from = "/wishlist"
+  to = "/wishlist.html"
+  status = 200
+
+[[redirects]]
+  from = "/logout.php"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/*.php"
   to = "/index.html"
   status = 200

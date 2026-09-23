@@ -1,76 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Cart - Online Plant Nursery</title>
-  <style>
-    body { font-family: Arial; margin: 20px; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
-    th { background-color: #f2f2f2; }
-    .total { font-weight: bold; }
-    .btn { padding: 10px 20px; background-color: green; color: white; border: none; cursor: pointer; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Online Plant Nursery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('Images/bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 50, 0, 0.45);
+            z-index: -1;
+        }
+
+        header {
+            background: rgba(0, 80, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            text-align: center;
+            color: white;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 100, 0, 0.6);
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            border-radius: 6px;
+        }
+
+        .cart-wrapper {
+            max-width: 900px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .cart-title {
+            color: white;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+    </style>
 </head>
 <body>
 
-  <h2>🛒 Your Cart</h2>
-  <table id="cartTable">
-    <thead>
-      <tr>
-        <th>Plant Name</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Subtotal</th>
-        <th>Remove</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
+<header>
+    <h1><i class="fa-solid fa-leaf" style="color: #a5d6a7;"></i> Online Plant Nursery</h1>
+</header>
 
-  <h3 class="total">Total: ₹<span id="totalAmount">0</span></h3>
-  <button class="btn" onclick="checkout()">Proceed to Checkout</button>
+<nav>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="Flower_Plants_Shop.html"><i class="fa-solid fa-spa"></i> Flower Plants</a>
+    <a href="Fruit_Plants_Shop.html"><i class="fa-solid fa-apple-whole"></i> Fruit Plants</a>
+    <a href="Medicinal_Plants_Shop.html"><i class="fa-solid fa-seedling"></i> Medicinal Plants</a>
+    <a href="plant_diseases_100.html"><i class="fa-solid fa-shield-virus"></i> Diseases</a>
+    <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i> Cart (<span id="cart-badge" class="cart-badge" style="display:none;">0</span>)</a>
+    <a href="orders.html"><i class="fa-solid fa-box"></i> Orders</a>
+</nav>
 
-  <script>
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+<div class="cart-wrapper">
+    <h2 class="cart-title"><i class="fa-solid fa-cart-shopping"></i> Your Shopping Cart</h2>
+    <div class="cart-container" id="cart-container">
+        <!-- Rendered dynamically by js/main.js -->
+    </div>
+</div>
 
-    function renderCart() {
-      let tbody = document.querySelector("#cartTable tbody");
-      let total = 0;
-      tbody.innerHTML = "";
-
-      cart.forEach((item, index) => {
-        let subtotal = item.price * item.qty;
-        total += subtotal;
-
-        tbody.innerHTML += `
-          <tr>
-            <td>${item.name}</td>
-            <td>₹${item.price}</td>
-            <td>${item.qty}</td>
-            <td>₹${subtotal}</td>
-            <td><button onclick="removeItem(${index})">❌</button></td>
-          </tr>
-        `;
-      });
-
-      document.getElementById("totalAmount").innerText = total;
-    }
-
-    function removeItem(index) {
-      cart.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      renderCart();
-    }
-
-    function checkout() {
-      alert("Thank you for your order! (Dummy checkout)");
-      localStorage.removeItem("cart");
-      location.reload();
-    }
-
-    renderCart();
-  </script>
-
+<script src="js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Plant Nursery</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+body {
+    background: url('Images/bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 50, 0, 0.45);
+    z-index: -1;
+}
+
+.login-box {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 35px 30px;
+    border-radius: 14px;
+    width: 360px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+}
+
+.login-box h2 {
+    text-align: center;
+    color: #2e7d32;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.login-box label {
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.login-box input[type="email"],
+.login-box input[type="password"] {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: white;
+    box-sizing: border-box;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: 0.3s;
+}
+
+.login-box input:focus {
+    outline: none;
+    border-color: #2e7d32;
+    box-shadow: 0 0 8px rgba(46,125,50,0.3);
+}
+
+.login-box input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg, #2e7d32, #4caf50);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-box input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(46,125,50,0.4);
+}
+
+.back-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.back-link a {
+    color: #2e7d32;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
+</style>
+</head>
+<body>
+
+<div class="login-box">
+    <h2><i class="fa-solid fa-leaf"></i> Welcome Back</h2>
+
+    <form method="POST" action="login.html" id="loginForm">
+        <label for="email"><i class="fa-solid fa-envelope"></i> Email Address</label>
+        <input type="email" id="email" name="email" placeholder="name@example.com" required>
+
+        <label for="password"><i class="fa-solid fa-lock"></i> Password</label>
+        <input type="password" id="password" name="password" placeholder="••••••••" required>
+
+        <input type="submit" value="Sign In">
+    </form>
+
+    <div class="back-link">
+        Don't have an account? <a href="Register.html">Register here</a>
+    </div>
+    <div class="back-link" style="margin-top: 10px;">
+        <a href="index.html">← Back to Home</a>
+    </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

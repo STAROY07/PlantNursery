@@ -1,0 +1,1642 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Medicinal Plants Shop</title>
+  <style>
+body {
+  font-family: Arial, sans-serif;
+  background: transparent; /* 🔥 allow global background */
+}
+
+/* TITLE */
+h1 {
+  text-align: center;
+  background: rgba(76, 175, 80, 0.7);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* CONTAINER */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* 🔥 CARD IMPROVED */
+.plant-card {
+  width: 260px;
+  background: rgba(255,255,255,0.9);
+  margin: 10px;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+/* 🔥 HOVER EFFECT */
+.plant-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+/* IMAGE */
+.plant-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+/* 🔥 IMAGE ZOOM */
+.plant-card:hover img {
+  transform: scale(1.05);
+}
+
+/* TEXT */
+.plant-card h3 {
+  margin: 10px 0 5px;
+  color: #2e7d32;
+}
+
+.plant-card p {
+  font-size: 14px;
+  color: #555;
+  margin: 5px 0;
+}
+
+/* PRICE */
+.price {
+  color: #2e7d32;
+  font-weight: bold;
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+/* 🔥 BUTTON IMPROVED */
+button {
+  background: linear-gradient(45deg, #43a047, #66bb6a);
+  color: white;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: bold;
+
+  transition: all 0.3s ease;
+}
+
+/* BUTTON HOVER */
+button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* NAV LINKS */
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+/* SUCCESS MESSAGE */
+.success-msg {
+  background: #d4edda;
+  color: #155724;
+  padding: 12px;
+  margin: 15px auto;
+  border-radius: 8px;
+  text-align: center;
+  width: 60%;
+  font-weight: 500;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+</style>
+</head>
+<script>
+setTimeout(function(){
+    var msg = document.getElementById("cartMessage");
+    if(msg){
+        msg.style.transition = "opacity 0.5s ease";
+        msg.style.opacity = "0";
+        setTimeout(() => msg.remove(), 500);
+    }
+}, 3000); // 3000ms = 3 seconds
+</script>
+
+
+<body>
+
+
+<!-- SEARCH BAR (SAME STYLE) -->
+<div style="text-align: center; margin-top: 20px;">
+<form action="SearchMedicinal.php" method="get" style="display: inline-block;">
+  <input type="text" name="q" placeholder="Search medicinal plant" required
+         style="padding: 10px; width: 250px; border: 1px solid #ccc; border-radius: 5px;">
+  <button type="submit"
+          style="padding: 15px 15px; background:#4CAF50; color:white; border:none; border-radius:5px;">
+    Search
+  </button>
+</form>
+</div>
+
+<!-- NAV BAR -->
+<style>
+.wishlist-icon-wrap {
+  position: absolute;
+  right: 72px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+}
+.wishlist-icon-btn {
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.6);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition: background 0.2s, transform 0.2s;
+  color: #fff;
+  text-decoration: none;
+  user-select: none;
+}
+.wishlist-icon-btn:hover {
+  background: rgba(255,255,255,0.35);
+  transform: scale(1.1);
+  color: #ff6b8a;
+}
+.profile-icon-wrap {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+}
+.profile-icon-btn {
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.6);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  transition: background 0.2s, transform 0.2s;
+  color: #fff;
+  text-decoration: none;
+}
+.profile-icon-btn:hover { background: rgba(255,255,255,0.35); transform: scale(1.1); }
+.profile-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  min-width: 150px;
+  overflow: hidden;
+  z-index: 1000;
+}
+.profile-dropdown a {
+  display: block;
+  padding: 12px 18px;
+  color: #2e7d32 !important;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  background: #fff !important;
+  transition: background 0.2s;
+  border-bottom: 1px solid #f0f0f0;
+}
+.profile-dropdown a:last-child { border-bottom: none; }
+.profile-dropdown a:hover { background: #e8f5e9 !important; }
+.profile-dropdown.open { display: block; }
+@keyframes dropFade {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.profile-dropdown { animation: dropFade 0.18s ease; }
+</style>
+<nav style="background-color: #4CAF50; padding: 10px; text-align: center; position: relative;">
+  <a href="index.html">🏠 Home</a>
+  <a href="Flower_Plants_Shop.html">🌸 Flower Plants</a>
+  <a href="Fruit_Plants_Shop.html">🍋 Fruit Plants</a>
+  <a href="Medicinal_Plants_Shop.html">🌿 Medicinal Plants</a>
+  <a href="air_purification_plants_detailed.html">💨 Air Purifying Plants</a>
+  <a href="cart_page.html">🛒 Cart</a>
+  <a href="help_center/help_center.php">🛠️ Help Center</a>
+
+
+  <!-- Wishlist Icon -->
+  <div class="wishlist-icon-wrap">
+    <a href="wishlist.html" class="wishlist-icon-btn" title="My Wishlist">
+      <span id="wishlist-badge" class="wishlist-badge" style="display:none;">0</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </a>
+  </div>
+
+  <!-- Profile Icon Top Right -->
+  <div class="profile-icon-wrap" id="profileWrap">
+    <span class="profile-icon-btn" id="profileBtn" title="My Account" onclick="toggleProfileMenu(event)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
+    <div class="profile-dropdown" id="profileDropdown">
+      <a href="profile.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; margin-right: 5px; vertical-align: text-bottom;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> My Profile</a>
+      <a href="orders.html">📦 My Orders</a>
+      <a href="transaction_history.php">💳 Transactions</a>
+      <a href="index.html">🚪 Logout</a>
+    </div>
+  </div>
+</nav>
+<script>
+function toggleProfileMenu(e) {
+  e.stopPropagation();
+  document.getElementById('profileDropdown').classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  var wrap = document.getElementById('profileWrap');
+  if (wrap && !wrap.contains(e.target)) {
+    document.getElementById('profileDropdown').classList.remove('open');
+  }
+});
+</script>
+
+
+
+<h1>Medicinal Plants - Online Shop</h1>
+
+<div class="container">
+<!-- 🔴 ALL YOUR MEDICINAL PLANTS ARE UNCHANGED BELOW -->
+<!-- 201 : Neem -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/neem.jpeg" alt="Neem">
+    <h3>Neem</h3>
+    <p>Bitter tree with antibacterial properties, used for skin and dental care.</p>
+    <p class="price">₹70</p>
+    <input type="hidden" name="plant_id" value="201">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="201">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 202 : Tulsi -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/tulsi.jpeg" alt="Tulsi">
+    <h3>Tulsi</h3>
+    <p>Holy basil used in Ayurvedic remedies for cold, fever, and immunity.</p>
+    <p class="price">₹50</p>
+    <input type="hidden" name="plant_id" value="202">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="202">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 203 : Ashwagandha -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/ashwagandha.jpeg" alt="Ashwagandha">
+    <h3>Ashwagandha</h3>
+    <p>Used to reduce stress and boost energy levels.</p>
+    <p class="price">₹90</p>
+    <input type="hidden" name="plant_id" value="203">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="203">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 204 : Guduchi -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/guduchi.jpeg" alt="Guduchi">
+    <h3>Guduchi</h3>
+    <p>Immunity booster and detoxifying herb used in Ayurveda.</p>
+    <p class="price">₹85</p>
+    <input type="hidden" name="plant_id" value="204">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="204">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 205 : Brahmi -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/brahmi.jpeg" alt="Brahmi">
+    <h3>Brahmi</h3>
+    <p>Brain tonic herb, enhances memory and concentration.</p>
+    <p class="price">₹80</p>
+    <input type="hidden" name="plant_id" value="205">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="205">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 206 : Aloe -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/aloe.jpeg" alt="Aloe">
+    <h3>Aloe</h3>
+    <p>Succulent plant known for soothing skin and digestive benefits.</p>
+    <p class="price">₹60</p>
+    <input type="hidden" name="plant_id" value="206">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="206">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 207 : Turmeric -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/turmeric.jpeg" alt="Turmeric">
+    <h3>Turmeric</h3>
+    <p>Strong anti-inflammatory and healing agent.</p>
+    <p class="price">₹50</p>
+    <input type="hidden" name="plant_id" value="207">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="207">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 208 : Ginger -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/ginger.jpeg" alt="Ginger">
+    <h3>Ginger</h3>
+    <p>Used for digestion, nausea relief and anti-inflammatory benefits.</p>
+    <p class="price">₹40</p>
+    <input type="hidden" name="plant_id" value="208">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="208">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 209 : Garlic -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/garlic.jpeg" alt="Garlic">
+    <h3>Garlic</h3>
+    <p>Has antimicrobial properties and supports heart health.</p>
+    <p class="price">₹35</p>
+    <input type="hidden" name="plant_id" value="209">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="209">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 210 : Mint -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/mint.jpeg" alt="Mint">
+    <h3>Mint</h3>
+    <p>Used in digestion and to soothe nausea.</p>
+    <p class="price">₹40</p>
+    <input type="hidden" name="plant_id" value="210">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="210">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 211 : Echinacea -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/echinacea.jpeg" alt="Echinacea">
+    <h3>Echinacea</h3>
+    <p>Herb used to support immune function and cold relief.</p>
+    <p class="price">₹140</p>
+    <input type="hidden" name="plant_id" value="211">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="211">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 212 : Ginseng -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/ginseng.jpeg" alt="Ginseng">
+    <h3>Ginseng</h3>
+    <p>Adaptogenic root used to boost energy and reduce fatigue.</p>
+    <p class="price">₹220</p>
+    <input type="hidden" name="plant_id" value="212">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="212">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 213 : Valerian -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/valerian.jpeg" alt="Valerian">
+    <h3>Valerian</h3>
+    <p>Used as a mild sedative to improve sleep quality.</p>
+    <p class="price">₹120</p>
+    <input type="hidden" name="plant_id" value="213">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="213">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 214 : Lavender -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/lavender.jpeg" alt="Lavender">
+    <h3>Lavender</h3>
+    <p>Aromatic herb used for relaxation and skin care.</p>
+    <p class="price">₹90</p>
+    <input type="hidden" name="plant_id" value="214">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="214">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 215 : Chamomile -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/chamomile.jpeg" alt="Chamomile">
+    <h3>Chamomile</h3>
+    <p>Gentle herb for calming, sleep, and digestive relief.</p>
+    <p class="price">₹70</p>
+    <input type="hidden" name="plant_id" value="215">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="215">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 216 : Calendula -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/calendula.jpeg" alt="Calendula">
+    <h3>Calendula</h3>
+    <p>Used for mild skin inflammation and wound healing.</p>
+    <p class="price">₹75</p>
+    <input type="hidden" name="plant_id" value="216">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="216">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 217 : Rosemary -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/rosemary.jpeg" alt="Rosemary">
+    <h3>Rosemary</h3>
+    <p>Aromatic herb used for memory and digestion.</p>
+    <p class="price">₹60</p>
+    <input type="hidden" name="plant_id" value="217">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="217">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 218 : Thyme -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/thyme.jpeg" alt="Thyme">
+    <h3>Thyme</h3>
+    <p>Used for respiratory complaints and as an antiseptic.</p>
+    <p class="price">₹55</p>
+    <input type="hidden" name="plant_id" value="218">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="218">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 219 : Oregano -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/oregano.jpeg" alt="Oregano">
+    <h3>Oregano</h3>
+    <p>Antimicrobial herb often used in respiratory remedies.</p>
+    <p class="price">₹65</p>
+    <input type="hidden" name="plant_id" value="219">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="219">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 220 : Sage -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/sage.jpeg" alt="Sage">
+    <h3>Sage</h3>
+    <p>Traditionally used for sore throat and digestion.</p>
+    <p class="price">₹70</p>
+    <input type="hidden" name="plant_id" value="220">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="220">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 221 : Basil -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/basil.jpeg" alt="Basil">
+    <h3>Basil</h3>
+    <p>Anti-inflammatory herb used in traditional remedies.</p>
+    <p class="price">₹45</p>
+    <input type="hidden" name="plant_id" value="221">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="221">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 222 : Fenugreek -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/fenugreek.jpeg" alt="Fenugreek">
+    <h3>Fenugreek</h3>
+    <p>Used to lower blood sugar and improve digestion.</p>
+    <p class="price">₹50</p>
+    <input type="hidden" name="plant_id" value="222">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="222">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 223 : Fennel -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/fennel.jpeg" alt="Fennel">
+    <h3>Fennel</h3>
+    <p>Aids digestion and relieves bloating.</p>
+    <p class="price">₹35</p>
+    <input type="hidden" name="plant_id" value="223">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="223">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 224 : Cardamom -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/cardamom.jpeg" alt="Cardamom">
+    <h3>Cardamom</h3>
+    <p>Used for digestion and to freshen breath.</p>
+    <p class="price">₹80</p>
+    <input type="hidden" name="plant_id" value="224">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="224">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 225 : Cinnamon -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/cinnamon.jpeg" alt="Cinnamon">
+    <h3>Cinnamon</h3>
+    <p>Used for blood sugar control and circulation.</p>
+    <p class="price">₹60</p>
+    <input type="hidden" name="plant_id" value="225">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="225">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 226 : Clove -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/clove.jpeg" alt="Clove">
+    <h3>Clove</h3>
+    <p>Has analgesic and antiseptic properties.</p>
+    <p class="price">₹70</p>
+    <input type="hidden" name="plant_id" value="226">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="226">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 227 : Peppermint -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/peppermint.jpeg" alt="Peppermint">
+    <h3>Peppermint</h3>
+    <p>Helps digestion and relieves headaches.</p>
+    <p class="price">₹55</p>
+    <input type="hidden" name="plant_id" value="227">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="227">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 228 : Licorice -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/licorice.jpeg" alt="Licorice">
+    <h3>Licorice</h3>
+    <p>Soothes sore throat and stomach ulcers.</p>
+    <p class="price">₹90</p>
+    <input type="hidden" name="plant_id" value="228">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="228">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 229 : Dandelion -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/dandelion.jpeg" alt="Dandelion">
+    <h3>Dandelion</h3>
+    <p>Used as a mild diuretic and liver tonic.</p>
+    <p class="price">₹50</p>
+    <input type="hidden" name="plant_id" value="229">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="229">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 230 : Yarrow -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/yarrow.jpeg" alt="Yarrow">
+    <h3>Yarrow</h3>
+    <p>Traditionally used for wound healing and circulation.</p>
+    <p class="price">₹75</p>
+    <input type="hidden" name="plant_id" value="230">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="230">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 231 : Nettle -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/nettle.jpeg" alt="Nettle">
+    <h3>Nettle</h3>
+    <p>Used for allergies and as a mineral-rich tonic.</p>
+    <p class="price">₹60</p>
+    <input type="hidden" name="plant_id" value="231">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="231">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 232 : Plantain -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/plantain.jpeg" alt="Plantain">
+    <h3>Plantain</h3>
+    <p>Leaves used topically for minor wounds and insect bites.</p>
+    <p class="price">₹40</p>
+    <input type="hidden" name="plant_id" value="232">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="232">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 233 : Passionflower -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/passionflower.jpeg" alt="Passionflower">
+    <h3>Passionflower</h3>
+    <p>Used for anxiety and to improve sleep quality.</p>
+    <p class="price">₹95</p>
+    <input type="hidden" name="plant_id" value="233">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="233">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 234 : Boswellia -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/boswellia.jpeg" alt="Boswellia">
+    <h3>Boswellia</h3>
+    <p>Anti-inflammatory resin used for joint pain.</p>
+    <p class="price">₹180</p>
+    <input type="hidden" name="plant_id" value="234">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="234">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 235 : Centella -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/centella.jpeg" alt="Centella">
+    <h3>Centella (Gotu Kola)</h3>
+    <p>Useful for skin health and cognitive support.</p>
+    <p class="price">₹85</p>
+    <input type="hidden" name="plant_id" value="235">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="235">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 236 : Horsetail -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/horsetail.jpeg" alt="Horsetail">
+    <h3>Horsetail</h3>
+    <p>Rich in silica; supports hair, skin, and bone health.</p>
+    <p class="price">₹120</p>
+    <input type="hidden" name="plant_id" value="236">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="236">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 237 : Marshmallow -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/marshmallow.jpeg" alt="Marshmallow">
+    <h3>Marshmallow</h3>
+    <p>Soothing herb for throat and mucous membranes.</p>
+    <p class="price">₹100</p>
+    <input type="hidden" name="plant_id" value="237">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="237">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 238 : Meadowsweet -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/meadowsweet.jpeg" alt="Meadowsweet">
+    <h3>Meadowsweet</h3>
+    <p>Traditional remedy for pain and digestion.</p>
+    <p class="price">₹95</p>
+    <input type="hidden" name="plant_id" value="238">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="238">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 239 : Eucalyptus -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/eucalyptus.jpeg" alt="Eucalyptus">
+    <h3>Eucalyptus</h3>
+    <p>Used for respiratory relief and as an antiseptic.</p>
+    <p class="price">₹70</p>
+    <input type="hidden" name="plant_id" value="239">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="239">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 240 : Olive Leaf -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/olive.jpeg" alt="Olive Leaf">
+    <h3>Olive (Leaf)</h3>
+    <p>Used for antioxidant and immune system support.</p>
+    <p class="price">₹110</p>
+    <input type="hidden" name="plant_id" value="240">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="240">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+
+<!-- 241 : Moringa -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/moringa.jpeg" alt="Moringa">
+    <h3>Moringa</h3>
+    <p>Highly nutritious leaves used as a health tonic.</p>
+    <p class="price">₹90</p>
+    <input type="hidden" name="plant_id" value="241">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="241">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 242 : Sarsaparilla -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/sarsaparilla.jpeg" alt="Sarsaparilla">
+    <h3>Sarsaparilla</h3>
+    <p>Used for blood purification and skin problems.</p>
+    <p class="price">₹140</p>
+    <input type="hidden" name="plant_id" value="242">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="242">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 243 : Juniper -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/juniper.jpeg" alt="Juniper">
+    <h3>Juniper</h3>
+    <p>Berries used as diuretic and urinary support.</p>
+    <p class="price">₹75</p>
+    <input type="hidden" name="plant_id" value="243">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="243">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 244 : Mustard -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/mustard.jpeg" alt="Mustard">
+    <h3>Mustard</h3>
+    <p>Used for congestion and muscle pain relief.</p>
+    <p class="price">₹35</p>
+    <input type="hidden" name="plant_id" value="244">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="244">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 245 : Cumin -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/cumin.jpeg" alt="Cumin">
+    <h3>Cumin</h3>
+    <p>Helps digestion and reduces gas.</p>
+    <p class="price">₹40</p>
+    <input type="hidden" name="plant_id" value="245">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="245">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 246 : Coriander -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/coriander.jpeg" alt="Coriander">
+    <h3>Coriander</h3>
+    <p>Useful in digestion and controlling cholesterol.</p>
+    <p class="price">₹35</p>
+    <input type="hidden" name="plant_id" value="246">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="246">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 247 : Amla -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/amla.jpeg" alt="Amla">
+    <h3>Amla</h3>
+    <p>Rich in vitamin C; used for immunity and hair health.</p>
+    <p class="price">₹70</p>
+    <input type="hidden" name="plant_id" value="247">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="247">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 248 : Haritaki -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/haritaki.jpeg" alt="Haritaki">
+    <h3>Haritaki</h3>
+    <p>Used for digestion and detoxification in Ayurveda.</p>
+    <p class="price">₹80</p>
+    <input type="hidden" name="plant_id" value="248">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="248">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 249 : Bibhitaki -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/bibhitaki.jpeg" alt="Bibhitaki">
+    <h3>Bibhitaki</h3>
+    <p>Supports digestion and detox.</p>
+    <p class="price">₹75</p>
+    <input type="hidden" name="plant_id" value="249">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="249">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 250 : Shatavari -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/shatavari.jpeg" alt="Shatavari">
+    <h3>Shatavari</h3>
+    <p>Supports female reproductive health and lactation.</p>
+    <p class="price">₹95</p>
+    <input type="hidden" name="plant_id" value="250">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="250">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 251 : Curryleaf -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/curryleaf.jpeg" alt="Curryleaf">
+    <h3>Curryleaf</h3>
+    <p>Used in cooking and to promote hair health.</p>
+    <p class="price">₹50</p>
+    <input type="hidden" name="plant_id" value="251">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="251">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 252 : Comfrey -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/comfrey.jpeg" alt="Comfrey">
+    <h3>Comfrey</h3>
+    <p>Traditionally used for wound healing and bone support.</p>
+    <p class="price">₹110</p>
+    <input type="hidden" name="plant_id" value="252">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="252">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 253 : Guggul -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/guggul.jpeg" alt="Guggul">
+    <h3>Guggul</h3>
+    <p>Used for arthritis and weight management support.</p>
+    <p class="price">₹100</p>
+    <input type="hidden" name="plant_id" value="253">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="253">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 254 : Nigella -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/nigella.jpeg" alt="Nigella">
+    <h3>Nigella (Black Seed)</h3>
+    <p>Used for immune support and general wellness.</p>
+    <p class="price">₹85</p>
+    <input type="hidden" name="plant_id" value="254">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="254">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 255 : Saw Palmetto -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/sawpalmetto.jpeg" alt="Saw Palmetto">
+    <h3>Saw Palmetto</h3>
+    <p>Used for prostate health and urinary support.</p>
+    <p class="price">₹190</p>
+    <input type="hidden" name="plant_id" value="255">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="255">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 256 : Berberis -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/berberis.jpeg" alt="Berberis">
+    <h3>Berberis</h3>
+    <p>Used for gut health and metabolic balance.</p>
+    <p class="price">₹95</p>
+    <input type="hidden" name="plant_id" value="256">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="256">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 257 : Andrographis -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/andrographis.jpeg" alt="Andrographis">
+    <h3>Andrographis</h3>
+    <p>Used for immune support and infections.</p>
+    <p class="price">₹120</p>
+    <input type="hidden" name="plant_id" value="257">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="257">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 258 : Senna -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/senna.jpeg" alt="Senna">
+    <h3>Senna</h3>
+    <p>Natural laxative used to treat constipation.</p>
+    <p class="price">₹60</p>
+    <input type="hidden" name="plant_id" value="258">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="258">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 259 : Vetiver -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/vetiver.jpeg" alt="Vetiver">
+    <h3>Vetiver</h3>
+    <p>Cooling root used in aromatherapy and relaxation.</p>
+    <p class="price">₹130</p>
+    <input type="hidden" name="plant_id" value="259">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="259">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 260 : Ashoka -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/ashoka.jpeg" alt="Ashoka">
+    <h3>Ashoka</h3>
+    <p>Used traditionally for gynecological health.</p>
+    <p class="price">₹150</p>
+    <input type="hidden" name="plant_id" value="260">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="260">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 261 : Arjuna -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/arjuna.jpeg" alt="Arjuna">
+    <h3>Arjuna</h3>
+    <p>Bark used in heart-related therapies.</p>
+    <p class="price">₹160</p>
+    <input type="hidden" name="plant_id" value="261">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="261">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 262 : Bael -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/bael.jpeg" alt="Bael">
+    <h3>Bael</h3>
+    <p>Used to treat diarrhea and support digestion.</p>
+    <p class="price">₹70</p>
+    <input type="hidden" name="plant_id" value="262">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="262">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 263 : Kokum -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/kokum.jpeg" alt="Kokum">
+    <h3>Kokum</h3>
+    <p>Used for digestion and as an anti-inflammatory.</p>
+    <p class="price">₹95</p>
+    <input type="hidden" name="plant_id" value="263">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="263">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 264 : Shankhpushpi -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/shankhpushpi.jpeg" alt="Shankhpushpi">
+    <h3>Shankhpushpi</h3>
+    <p>Traditional brain tonic for memory and calmness.</p>
+    <p class="price">₹120</p>
+    <input type="hidden" name="plant_id" value="264">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="264">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 265 : Gymnema -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/gymnema.jpeg" alt="Gymnema">
+    <h3>Gymnema</h3>
+    <p>Supports healthy blood sugar levels.</p>
+    <p class="price">₹110</p>
+    <input type="hidden" name="plant_id" value="265">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="265">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 266 : Rauwolfia -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/rauwolfia.jpeg" alt="Rauwolfia">
+    <h3>Rauwolfia</h3>
+    <p>Used for high blood pressure and calming effects.</p>
+    <p class="price">₹180</p>
+    <input type="hidden" name="plant_id" value="266">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="266">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 267 : Pippali -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/pippali.jpeg" alt="Pippali">
+    <h3>Pippali</h3>
+    <p>Long pepper used to enhance digestion.</p>
+    <p class="price">₹90</p>
+    <input type="hidden" name="plant_id" value="267">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="267">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 268 : Kachnar -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/kachnar.jpeg" alt="Kachnar">
+    <h3>Kachnar</h3>
+    <p>Used for thyroid and respiratory disorders.</p>
+    <p class="price">₹140</p>
+    <input type="hidden" name="plant_id" value="268">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="268">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 269 : Alstonia -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/alstonia.jpeg" alt="Alstonia">
+    <h3>Alstonia</h3>
+    <p>Used traditionally for fevers and digestion.</p>
+    <p class="price">₹130</p>
+    <input type="hidden" name="plant_id" value="269">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="269">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 270 : Bittergourd -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/bittergourd.jpeg" alt="Bittergourd">
+    <h3>Bittergourd</h3>
+    <p>Used for blood sugar management.</p>
+    <p class="price">₹60</p>
+    <input type="hidden" name="plant_id" value="270">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="270">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 271 : Triphala -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/triphala.jpeg" alt="Triphala">
+    <h3>Triphala</h3>
+    <p>Combination herb for digestion and detox.</p>
+    <p class="price">₹95</p>
+    <input type="hidden" name="plant_id" value="271">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="271">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 272 : Kapikacchu -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/kapikacchu.jpeg" alt="Kapikacchu">
+    <h3>Kapikacchu</h3>
+    <p>Supports muscle strength and vitality.</p>
+    <p class="price">₹200</p>
+    <input type="hidden" name="plant_id" value="272">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="272">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 273 : Holarrhena -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/holarrhena.jpeg" alt="Holarrhena">
+    <h3>Holarrhena</h3>
+    <p>Used for diarrhoea and intestinal disorders.</p>
+    <p class="price">₹85</p>
+    <input type="hidden" name="plant_id" value="273">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="273">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 274 : Celery -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/celery.jpeg" alt="Celery">
+    <h3>Celery</h3>
+    <p>Used as a diuretic and for heart health.</p>
+    <p class="price">₹45</p>
+    <input type="hidden" name="plant_id" value="274">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="274">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 275 : Periwinkle -->
+<div class="plant-card">
+  <form action="add_to_cart_page.html" method="post">
+    <img src="Images/medicinal/periwinkle.jpeg" alt="Periwinkle">
+    <h3>Periwinkle</h3>
+    <p>Contains alkaloids used in medicine.</p>
+    <p class="price">₹150</p>
+    <input type="hidden" name="plant_id" value="275">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.html" method="post">
+    <input type="hidden" name="plant_id" value="275">
+    <input type="hidden" name="source" value="medicinal">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+</div>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="js/main.js"></script>
+    
+</body>
+</html>

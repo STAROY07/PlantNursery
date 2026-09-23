@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist - Online Plant Nursery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('Images/bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 50, 0, 0.45);
+            z-index: -1;
+        }
+
+        header {
+            background: rgba(0, 80, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            text-align: center;
+            color: white;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 100, 0, 0.6);
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            border-radius: 6px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .title {
+            color: white;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .wishlist-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .wishlist-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            width: 240px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .wishlist-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1><i class="fa-solid fa-leaf" style="color: #a5d6a7;"></i> Online Plant Nursery</h1>
+</header>
+
+<nav>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="Flower_Plants_Shop.html"><i class="fa-solid fa-spa"></i> Flower Plants</a>
+    <a href="Fruit_Plants_Shop.html"><i class="fa-solid fa-apple-whole"></i> Fruit Plants</a>
+    <a href="Medicinal_Plants_Shop.html"><i class="fa-solid fa-seedling"></i> Medicinal Plants</a>
+    <a href="plant_diseases_100.html"><i class="fa-solid fa-shield-virus"></i> Diseases</a>
+    <a href="cart_page.html"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+    <a href="wishlist.html"><i class="fa-solid fa-heart" style="color: #ff4757;"></i> Wishlist</a>
+</nav>
+
+<div class="container">
+    <h2 class="title"><i class="fa-solid fa-heart" style="color: #ff6b81;"></i> Your Plant Wishlist</h2>
+    <div class="wishlist-grid" id="wishlist-container">
+        <!-- Rendered by JS -->
+    </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('wishlist-container');
+    const wishlist = JSON.parse(localStorage.getItem('nursery_wishlist') || '[]');
+
+    if (wishlist.length === 0) {
+        container.innerHTML = '<div style="background:white; padding:35px; border-radius:12px; text-align:center; width:100%; color:#666;"><h3>Your Wishlist is Empty</h3><p>Click the ❤️ icon on any plant to save it to your wishlist!</p><a href="Flower_Plants_Shop.html" style="display:inline-block; background:#2e7d32; color:white; padding:10px 20px; border-radius:6px; text-decoration:none; margin-top:10px;">Explore Plants</a></div>';
+        return;
+    }
+
+    container.innerHTML = wishlist.map((item, index) => `
+        <div class="wishlist-card">
+            <img src="${item.img || 'Images/bg.jpg'}" alt="${item.name}">
+            <h3 style="color:#2e7d32; margin:10px 0 5px 0;">${item.name}</h3>
+            <p style="color:#666; margin:0 0 10px 0; font-weight:bold;">${item.price || '₹199'}</p>
+            <button onclick="addToCart({name:'${item.name}', price:'${item.price}', img:'${item.img}'});" style="background:#2e7d32; color:white; border:none; padding:8px 14px; border-radius:6px; cursor:pointer; width:100%; font-weight:bold; margin-bottom:6px;"><i class="fa-solid fa-cart-plus"></i> Move to Cart</button>
+            <button onclick="removeWishlistItem(${index})" style="background:#f1f1f1; color:#ff4757; border:1px solid #ddd; padding:6px 12px; border-radius:6px; cursor:pointer; width:100%; font-size:0.85rem;"><i class="fa-solid fa-trash"></i> Remove</button>
+        </div>
+    `).join('');
+});
+
+function removeWishlistItem(index) {
+    let wishlist = JSON.parse(localStorage.getItem('nursery_wishlist') || '[]');
+    wishlist.splice(index, 1);
+    localStorage.setItem('nursery_wishlist', JSON.stringify(wishlist));
+    updateBadges();
+    location.reload();
+}
+</script>
+</body>
+</html>

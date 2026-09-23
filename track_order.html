@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order - Online Plant Nursery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('Images/bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 50, 0, 0.45);
+            z-index: -1;
+        }
+
+        header {
+            background: rgba(0, 80, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            text-align: center;
+            color: white;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 100, 0, 0.6);
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            border-radius: 6px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .track-card {
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .timeline {
+            position: relative;
+            margin: 30px 0 10px 20px;
+            border-left: 3px solid #2e7d32;
+            padding-left: 25px;
+        }
+
+        .step {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            left: -32px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            background: #2e7d32;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #2e7d32;
+        }
+
+        .step h4 {
+            margin: 0 0 4px 0;
+            color: #2e7d32;
+        }
+
+        .step p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1><i class="fa-solid fa-leaf" style="color: #a5d6a7;"></i> Online Plant Nursery</h1>
+</header>
+
+<nav>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="Flower_Plants_Shop.html"><i class="fa-solid fa-spa"></i> Flower Plants</a>
+    <a href="Fruit_Plants_Shop.html"><i class="fa-solid fa-apple-whole"></i> Fruit Plants</a>
+    <a href="plant_diseases_100.html"><i class="fa-solid fa-shield-virus"></i> Diseases</a>
+    <a href="cart_page.html"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+    <a href="orders.html"><i class="fa-solid fa-box"></i> My Orders</a>
+</nav>
+
+<div class="container">
+    <div class="track-card">
+        <h2 style="color: #2e7d32; margin-top: 0;"><i class="fa-solid fa-truck"></i> Live Order Tracking</h2>
+        <div style="display: flex; gap: 10px; margin-bottom: 25px;">
+            <input type="text" id="trackId" value="ORD-94821" placeholder="Enter Order ID" style="flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit;">
+            <button onclick="checkTrack()" style="background: #2e7d32; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: bold;"><i class="fa-solid fa-magnifying-glass"></i> Track</button>
+        </div>
+
+        <div id="trackResult">
+            <div style="background: #f1f8e9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <div style="color: #2e7d32; font-weight: bold; font-size: 1.1rem;">Status: In Transit (On the way)</div>
+                <div style="font-size: 0.85rem; color: #555; margin-top: 4px;">Carrier: BlueDart Express | Courier ID: BD9382104</div>
+            </div>
+
+            <div class="timeline">
+                <div class="step">
+                    <h4>Order Placed &amp; Confirmed</h4>
+                    <p>Your plant order was successfully received and confirmed.</p>
+                </div>
+                <div class="step">
+                    <h4>Packed with Care</h4>
+                    <p>Plants have been watered, sanitized, and carefully packed in eco-friendly boxes.</p>
+                </div>
+                <div class="step">
+                    <h4>Dispatched from Nursery Hub</h4>
+                    <p>Package left regional nursery facility and is in transit.</p>
+                </div>
+                <div class="step" style="opacity: 0.6;">
+                    <h4>Out for Delivery</h4>
+                    <p>Expected by tomorrow evening.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+function checkTrack() {
+    showToast('Tracking details updated for ' + document.getElementById('trackId').value);
+}
+</script>
+</body>
+</html>

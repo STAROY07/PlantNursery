@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Online Plant Nursery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('Images/bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 50, 0, 0.45);
+            z-index: -1;
+        }
+
+        header {
+            background: rgba(0, 80, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            text-align: center;
+            color: white;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 100, 0, 0.6);
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            border-radius: 6px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .title {
+            color: white;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .status-badge {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1><i class="fa-solid fa-leaf" style="color: #a5d6a7;"></i> Online Plant Nursery</h1>
+</header>
+
+<nav>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="Flower_Plants_Shop.html"><i class="fa-solid fa-spa"></i> Flower Plants</a>
+    <a href="Fruit_Plants_Shop.html"><i class="fa-solid fa-apple-whole"></i> Fruit Plants</a>
+    <a href="Medicinal_Plants_Shop.html"><i class="fa-solid fa-seedling"></i> Medicinal Plants</a>
+    <a href="plant_diseases_100.html"><i class="fa-solid fa-shield-virus"></i> Diseases</a>
+    <a href="cart_page.html"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+    <a href="orders.html"><i class="fa-solid fa-box"></i> My Orders</a>
+</nav>
+
+<div class="container">
+    <h2 class="title"><i class="fa-solid fa-box"></i> Your Order History</h2>
+    <div id="orders-list">
+        <!-- Rendered by JS -->
+    </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const list = document.getElementById('orders-list');
+    const orders = JSON.parse(localStorage.getItem('nursery_orders') || '[]');
+    
+    if (orders.length === 0) {
+        list.innerHTML = '<div style="background:white; padding:30px; border-radius:12px; text-align:center; color:#666;">No orders found yet. <br><a href="Flower_Plants_Shop.html" style="color:#2e7d32; font-weight:bold; margin-top:10px; display:inline-block;">Start Shopping</a></div>';
+        return;
+    }
+
+    list.innerHTML = orders.map(ord => `
+        <div class="order-card">
+            <div class="order-header">
+                <div>
+                    <strong style="color: #2e7d32; font-size: 1.1rem;">Order #${ord.id}</strong>
+                    <div style="font-size: 0.85rem; color: #888;">Placed on ${ord.date}</div>
+                </div>
+                <div class="status-badge"><i class="fa-solid fa-circle-check"></i> ${ord.status}</div>
+            </div>
+            <div style="margin-bottom: 12px;">
+                <strong>Items:</strong>
+                <ul style="margin: 6px 0; padding-left: 20px; color: #555;">
+                    ${(ord.items || []).map(it => `<li>${it.name} (Qty: ${it.qty || 1}) - ₹${(it.price || 199) * (it.qty || 1)}</li>`).join('')}
+                </ul>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #eee; padding-top: 12px;">
+                <div style="font-size: 1.1rem;">Total: <strong style="color: #2e7d32;">₹${ord.total}</strong></div>
+                <a href="track_order.html" style="background: #2e7d32; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 0.9rem; font-weight: 500;"><i class="fa-solid fa-truck-fast"></i> Track Shipment</a>
+            </div>
+        </div>
+    `).join('');
+});
+</script>
+</body>
+</html>

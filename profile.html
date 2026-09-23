@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Online Plant Nursery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('Images/bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 50, 0, 0.45);
+            z-index: -1;
+        }
+
+        header {
+            background: rgba(0, 80, 0, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            text-align: center;
+            color: white;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 100, 0, 0.6);
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            border-radius: 6px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 15px auto;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1><i class="fa-solid fa-leaf" style="color: #a5d6a7;"></i> Online Plant Nursery</h1>
+</header>
+
+<nav>
+    <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="Flower_Plants_Shop.html"><i class="fa-solid fa-spa"></i> Flower Plants</a>
+    <a href="Fruit_Plants_Shop.html"><i class="fa-solid fa-apple-whole"></i> Fruit Plants</a>
+    <a href="cart_page.html"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+    <a href="orders.html"><i class="fa-solid fa-box"></i> Orders</a>
+    <a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a>
+</nav>
+
+<div class="container">
+    <div class="profile-card">
+        <div class="avatar"><i class="fa-solid fa-user"></i></div>
+        <h2 id="userName" style="margin: 0 0 5px 0; color: #2e7d32;">Guest User</h2>
+        <p id="userEmail" style="color: #777; margin: 0 0 25px 0;">guest@nursery.com</p>
+
+        <div class="info-row">
+            <strong>Membership:</strong>
+            <span style="color: #2e7d32; font-weight: bold;">Green Premium Member</span>
+        </div>
+        <div class="info-row">
+            <strong>Delivery Address:</strong>
+            <span>Plot 42, Sector 5, Kolkata, WB</span>
+        </div>
+        <div class="info-row">
+            <strong>Active Orders:</strong>
+            <span>1 In Transit</span>
+        </div>
+
+        <div style="margin-top: 30px; display: flex; gap: 12px; justify-content: center;">
+            <a href="orders.html" style="background: #2e7d32; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 500;"><i class="fa-solid fa-box"></i> My Orders</a>
+            <button onclick="handleLogout()" style="background: #ff4757; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 500;"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
+        </div>
+    </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const user = JSON.parse(localStorage.getItem('nursery_currentUser') || 'null');
+    if (user) {
+        document.getElementById('userName').textContent = user.name || 'Plant Enthusiast';
+        document.getElementById('userEmail').textContent = user.email || 'user@example.com';
+    }
+});
+
+function handleLogout() {
+    localStorage.removeItem('nursery_currentUser');
+    showToast('Logged out successfully');
+    setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 800);
+}
+</script>
+</body>
+</html>
