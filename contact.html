@@ -10,7 +10,7 @@
 body {
     margin: 0;
     font-family: "Segoe UI", sans-serif;
-    background: transparent; /* 🔥 use global background */
+    background: transparent; /*  use global background */
 }
 
 /* NAVBAR */
@@ -119,14 +119,14 @@ nav a:hover {
 }
 .profile-dropdown { animation: dropFade 0.18s ease; }
 
-/* 🔥 FIXED HEADER (IMPORTANT) */
+/*  FIXED HEADER (IMPORTANT) */
 header {
     text-align: center;
     padding: 20px;
     font-size: 28px;
     font-weight: bold;
 
-    color: #ffffff; /* 🔥 white for visibility */
+    color: #ffffff; /*  white for visibility */
 
     background: rgba(0, 80, 0, 0.5); /* dark glass */
     display: inline-block;
@@ -247,13 +247,13 @@ input[type=submit]:hover {
 <body>
 
 <nav>
-  <a href="index.html">🏠 Home</a>
-  <a href="Flower_Plants_Shop.html">🌸 Flower Plants</a>
-  <a href="Fruit_Plants_Shop.html">🍋 Fruit Plants</a>
-  <a href="Medicinal_Plants_Shop.html">🌿 Medicinal Plants</a>
-  <a href="air_purification_plants_detailed.html">💨 Air Plants</a>
-  <a href="cart_page.html">🛒 Cart</a>
-  <a href="help_center/help_center.php">🛠️ Help Center</a>
+  <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+  <a href="Flower_Plants_Shop.html"><i class="fa-solid fa-spa"></i> Flower Plants</a>
+  <a href="Fruit_Plants_Shop.html"><i class="fa-solid fa-lemon"></i> Fruit Plants</a>
+  <a href="Medicinal_Plants_Shop.html"><i class="fa-solid fa-leaf" style="color:#a5d6a7;"></i> Medicinal Plants</a>
+  <a href="air_purification_plants_detailed.html"><i class="fa-solid fa-wind"></i> Air Plants</a>
+  <a href="cart_page.html"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+  <a href="about.html"><i class="fa-solid fa-wrench"></i> Help Center</a>
 
   <!-- Wishlist Icon -->
   <div class="wishlist-icon-wrap">
@@ -268,9 +268,9 @@ input[type=submit]:hover {
     <span class="profile-icon-btn" id="profileBtn" title="My Account" onclick="toggleProfileMenu(event)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
     <div class="profile-dropdown" id="profileDropdown">
       <a href="profile.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; margin-right: 5px; vertical-align: text-bottom;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> My Profile</a>
-      <a href="orders.html">📦 My Orders</a>
-      <a href="transaction_history.php">💳 Transactions</a>
-      <a href="index.html">🚪 Logout</a>
+      <a href="orders.html"><i class="fa-solid fa-box"></i> My Orders</a>
+      <a href="orders.html"><i class="fa-solid fa-credit-card"></i> Transactions</a>
+      <a href="index.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
     </div>
   </div>
 </nav>
@@ -287,7 +287,7 @@ document.addEventListener('click', function(e) {
 });
 </script>
 
-<header>🌿 Feedback - Online Plant Nursery</header>
+<header><i class="fa-solid fa-leaf" style="color:#a5d6a7;"></i> Feedback - Online Plant Nursery</header>
 
 <div class="container">
 
@@ -305,7 +305,7 @@ setTimeout(() => {
 </script>
 
 
-<form method="post" action="contact_process.php">
+<form method="post" action="contact.html">
 
 <label>Name</label>
 <input type="text" name="name" required>

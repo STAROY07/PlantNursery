@@ -6,7 +6,7 @@
   <style>
 body {
   font-family: Arial, sans-serif;
-  background: transparent; /* 🔥 allow global background */
+  background: transparent; /*  allow global background */
 }
 
 /* TITLE */
@@ -28,7 +28,7 @@ h1 {
   padding: 20px;
 }
 
-/* 🔥 CARD IMPROVED */
+/*  CARD IMPROVED */
 .plant-card {
   width: 260px;
   background: rgba(255,255,255,0.9);
@@ -41,7 +41,7 @@ h1 {
   transition: all 0.3s ease;
 }
 
-/* 🔥 HOVER EFFECT */
+/*  HOVER EFFECT */
 .plant-card:hover {
   transform: translateY(-8px) scale(1.02);
   box-shadow: 0 12px 30px rgba(0,0,0,0.3);
@@ -56,7 +56,7 @@ h1 {
   transition: 0.3s;
 }
 
-/* 🔥 IMAGE ZOOM */
+/*  IMAGE ZOOM */
 .plant-card:hover img {
   transform: scale(1.05);
 }
@@ -81,7 +81,7 @@ h1 {
   font-size: 16px;
 }
 
-/* 🔥 BUTTON IMPROVED */
+/*  BUTTON IMPROVED */
 button {
   background: linear-gradient(45deg, #43a047, #66bb6a);
   color: white;
@@ -139,7 +139,7 @@ setTimeout(function(){
 
 <!-- SEARCH BAR (SAME AS FLOWER) -->
 <div style="text-align: center; margin-top: 20px;">
-<form action="SearchFruit.php" method="get" style="display: inline-block;">
+<form action="Fruit_Plants_Shop.html" method="get" style="display: inline-block;">
   <input type="text" name="q" placeholder="Search fruit" required
          style="padding: 10px; width: 250px; border: 1px solid #ccc; border-radius: 5px;">
   <button type="submit"
@@ -235,13 +235,13 @@ setTimeout(function(){
 .profile-dropdown { animation: dropFade 0.18s ease; }
 </style>
 <nav style="background-color: #4CAF50; padding: 10px; text-align: center; position: relative;">
-  <a href="index.html">🏠 Home</a>
-  <a href="Flower_Plants_Shop.html">🌸 Flower Plants</a>
-  <a href="Fruit_Plants_Shop.html">🍋 Fruit Plants</a>
-  <a href="Medicinal_Plants_Shop.html">🌿 Medicinal Plants</a>
-  <a href="air_purification_plants_detailed.html">💨 Air Purifying Plants</a>
-  <a href="cart_page.html">🛒 Cart</a>
-  <a href="help_center/help_center.php">🛠️ Help Center</a>
+  <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+  <a href="Flower_Plants_Shop.html"><i class="fa-solid fa-spa"></i> Flower Plants</a>
+  <a href="Fruit_Plants_Shop.html"><i class="fa-solid fa-lemon"></i> Fruit Plants</a>
+  <a href="Medicinal_Plants_Shop.html"><i class="fa-solid fa-leaf" style="color:#a5d6a7;"></i> Medicinal Plants</a>
+  <a href="air_purification_plants_detailed.html"><i class="fa-solid fa-wind"></i> Air Purifying Plants</a>
+  <a href="cart_page.html"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+  <a href="about.html"><i class="fa-solid fa-wrench"></i> Help Center</a>
 
 
   <!-- Wishlist Icon -->
@@ -258,9 +258,9 @@ setTimeout(function(){
     <span class="profile-icon-btn" id="profileBtn" title="My Account" onclick="toggleProfileMenu(event)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
     <div class="profile-dropdown" id="profileDropdown">
       <a href="profile.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; margin-right: 5px; vertical-align: text-bottom;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> My Profile</a>
-      <a href="orders.html">📦 My Orders</a>
-      <a href="transaction_history.php">💳 Transactions</a>
-      <a href="index.html">🚪 Logout</a>
+      <a href="orders.html"><i class="fa-solid fa-box"></i> My Orders</a>
+      <a href="orders.html"><i class="fa-solid fa-credit-card"></i> Transactions</a>
+      <a href="index.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
     </div>
   </div>
 </nav>
@@ -281,7 +281,7 @@ document.addEventListener('click', function(e) {
 <h1>Fruit Plants - Online Shop</h1>
 
 <div class="container">
-<!-- 🔴 ALL YOUR FRUIT PLANTS ARE UNCHANGED BELOW -->
+<!--  ALL YOUR FRUIT PLANTS ARE UNCHANGED BELOW -->
 <!-- 101 : Mango -->
 <div class="plant-card">
 
@@ -298,7 +298,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="101">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -319,7 +319,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="102">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -340,7 +340,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="103">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -361,7 +361,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="104">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -382,7 +382,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="105">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -403,7 +403,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="106">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -424,7 +424,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="107">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -445,7 +445,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="108">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -466,7 +466,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="109">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -487,7 +487,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="110">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -507,7 +507,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="111">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -528,7 +528,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="112">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -549,7 +549,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="113">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -570,7 +570,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="114">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -591,7 +591,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="115">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -612,7 +612,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="116">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -633,7 +633,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="117">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -654,7 +654,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="118">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -675,7 +675,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="119">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -696,7 +696,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="120">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -717,7 +717,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="121">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -738,7 +738,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="122">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -759,7 +759,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="123">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -780,7 +780,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="124">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -801,7 +801,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="125">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -822,7 +822,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="126">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -843,7 +843,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="127">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -864,7 +864,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="128">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -885,7 +885,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="129">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -906,7 +906,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="130">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -925,7 +925,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="131">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -943,7 +943,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="132">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -961,7 +961,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="133">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -979,7 +979,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="134">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -997,7 +997,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="135">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1015,7 +1015,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="136">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1033,7 +1033,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="137">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1051,7 +1051,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="138">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1069,7 +1069,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="139">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1087,7 +1087,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="140">
     <input type="hidden" name="source" value="fruit">
-    <button>❤️ Add to Wishlist</button>
+    <button><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1107,7 +1107,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="141">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -1128,7 +1128,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="142">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -1149,7 +1149,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="143">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -1170,7 +1170,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="144">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -1191,7 +1191,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="145">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -1212,7 +1212,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="146">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -1233,7 +1233,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="147">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -1254,7 +1254,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="148">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -1275,7 +1275,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="149">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -1296,7 +1296,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="150">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 
 </div>
@@ -1316,7 +1316,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="151">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1335,7 +1335,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="152">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1354,7 +1354,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="153">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1373,7 +1373,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="154">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1392,7 +1392,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="155">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1411,7 +1411,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="156">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1430,7 +1430,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="157">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1449,7 +1449,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="158">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1468,7 +1468,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="159">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1487,7 +1487,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="160">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1505,7 +1505,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="161">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1523,7 +1523,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="162">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1541,7 +1541,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="163">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1559,7 +1559,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="164">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1577,7 +1577,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="165">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1595,7 +1595,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="166">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1613,7 +1613,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="167">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1631,7 +1631,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="168">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1649,7 +1649,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="169">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1667,7 +1667,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="170">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1685,7 +1685,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="171">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1703,7 +1703,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="172">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1721,7 +1721,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="173">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1739,7 +1739,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="174">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1757,7 +1757,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="175">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1775,7 +1775,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="176">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1793,7 +1793,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="177">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1811,7 +1811,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="178">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1829,7 +1829,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="179">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1847,7 +1847,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="180">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1865,7 +1865,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="181">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1883,7 +1883,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="182">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1901,7 +1901,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="183">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1919,7 +1919,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="184">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1937,7 +1937,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="185">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1955,7 +1955,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="186">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1973,7 +1973,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="187">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -1991,7 +1991,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="188">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -2009,7 +2009,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="189">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -2027,7 +2027,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="190">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -2045,7 +2045,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="191">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -2063,7 +2063,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="192">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -2081,7 +2081,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="193">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -2099,7 +2099,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="194">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -2117,7 +2117,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="195">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -2135,7 +2135,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="196">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -2153,7 +2153,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="197">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -2171,7 +2171,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="198">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -2189,7 +2189,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="199">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 
@@ -2207,7 +2207,7 @@ document.addEventListener('click', function(e) {
   <form action="add_to_wishlist.html" method="post">
     <input type="hidden" name="plant_id" value="200">
     <input type="hidden" name="source" value="fruit">
-    <button type="submit">❤️ Add to Wishlist</button>
+    <button type="submit"><i class="fa-solid fa-heart" style="color:#ff4757;"></i> Add to Wishlist</button>
   </form>
 </div>
 </div>

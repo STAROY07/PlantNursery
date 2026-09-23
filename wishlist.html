@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const wishlist = JSON.parse(localStorage.getItem('nursery_wishlist') || '[]');
 
     if (wishlist.length === 0) {
-        container.innerHTML = '<div style="background:white; padding:35px; border-radius:12px; text-align:center; width:100%; color:#666;"><h3>Your Wishlist is Empty</h3><p>Click the ❤️ icon on any plant to save it to your wishlist!</p><a href="Flower_Plants_Shop.html" style="display:inline-block; background:#2e7d32; color:white; padding:10px 20px; border-radius:6px; text-decoration:none; margin-top:10px;">Explore Plants</a></div>';
+        container.innerHTML = '<div style="background:white; padding:35px; border-radius:12px; text-align:center; width:100%; color:#666;"><h3>Your Wishlist is Empty</h3><p>Click the <i class="fa-solid fa-heart" style="color:#ff4757;"></i> icon on any plant to save it to your wishlist!</p><a href="Flower_Plants_Shop.html" style="display:inline-block; background:#2e7d32; color:white; padding:10px 20px; border-radius:6px; text-decoration:none; margin-top:10px;">Explore Plants</a></div>';
         return;
     }
 

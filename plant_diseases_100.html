@@ -6,7 +6,7 @@
 <title>Plant Diseases - 100 Unique Issues</title>
 
 <style>
-/* 🌿 GLOBAL */
+/* <i class="fa-solid fa-leaf" style="color:#a5d6a7;"></i> GLOBAL */
 *{
   margin:0;
   padding:0;
@@ -20,7 +20,7 @@ body{
   line-height:1.6;
 }
 
-/* 🔴 HEADER */
+/*  HEADER */
 header{
   background:linear-gradient(135deg,#c62828,#b71c1c);
   color:#fff;
@@ -34,7 +34,7 @@ header h1{
   letter-spacing:0.5px;
 }
 
-/* 🟢 NAVBAR */
+/*  NAVBAR */
 nav.main{
   background:linear-gradient(135deg,#2e7d32,#4CAF50);
   padding:12px;
@@ -142,7 +142,7 @@ nav.main a:hover{
 }
 .profile-dropdown { animation: dropFade 0.18s ease; }
 
-/* 🔍 SEARCH */
+/* <i class="fa-solid fa-magnifying-glass"></i> SEARCH */
 .search-container{
   text-align:center;
   margin:25px 0;
@@ -174,7 +174,7 @@ nav.main a:hover{
   transform:translateY(-2px);
 }
 
-/* 📦 CONTENT */
+/* <i class="fa-solid fa-box"></i> CONTENT */
 .wrap{
   padding:40px 20px;
   max-width:1250px;
@@ -187,14 +187,14 @@ nav.main a:hover{
   margin-bottom:25px;
 }
 
-/* 🧩 GRID */
+/*  GRID */
 .disease-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:22px;
 }
 
-/* 🪴 CARD */
+/*  CARD */
 .card{
   background:rgba(255,255,255,0.95);
   border-radius:18px;
@@ -224,7 +224,7 @@ nav.main a:hover{
   box-shadow:0 25px 70px rgba(0,0,0,0.18);
 }
 
-/* 🖼 IMAGE */
+/*  IMAGE */
 .card img{
   width:100%;
   height:160px;
@@ -232,7 +232,7 @@ nav.main a:hover{
   border-radius:12px;
 }
 
-/* 📝 TEXT */
+/*  TEXT */
 .card h3{
   margin:12px 0 6px;
   font-size:18px;
@@ -245,7 +245,7 @@ nav.main a:hover{
   color:#333;
 }
 
-/* 🔻 FOOTER */
+/*  FOOTER */
 footer{
   margin-top:40px;
   background:#fceaea;
@@ -255,7 +255,7 @@ footer{
   font-size:14px;
 }
 
-/* 📱 RESPONSIVE */
+/*  RESPONSIVE */
 @media(max-width:600px){
   header h1{font-size:22px}
   .search-container input{width:90%}
@@ -270,14 +270,14 @@ footer{
 </header>
 
 <nav class="main" style="position: relative;">
-  <a href="index.html">🏠 Home</a>
-  <a href="Flower_Plants_Shop.html">🌸 Flower Plants</a>
-  <a href="Fruit_Plants_Shop.html">🍋 Fruit Plants</a>
-  <a href="Medicinal_Plants_Shop.html">🌿 Medicinal Plants</a>
-  <a href="air_purification_plants_detailed.html">💨 AirPurify Plants</a>
-  <a href="plant_diseases_100.html">🦠 Diseases</a>
-  <a href="contact.html">💬 Contact</a>
-  <a href="help_center/help_center.php">🛠️ Help Center</a>
+  <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+  <a href="Flower_Plants_Shop.html"><i class="fa-solid fa-spa"></i> Flower Plants</a>
+  <a href="Fruit_Plants_Shop.html"><i class="fa-solid fa-lemon"></i> Fruit Plants</a>
+  <a href="Medicinal_Plants_Shop.html"><i class="fa-solid fa-leaf" style="color:#a5d6a7;"></i> Medicinal Plants</a>
+  <a href="air_purification_plants_detailed.html"><i class="fa-solid fa-wind"></i> AirPurify Plants</a>
+  <a href="plant_diseases_100.html"><i class="fa-solid fa-shield-virus"></i> Diseases</a>
+  <a href="contact.html"><i class="fa-solid fa-comments"></i> Contact</a>
+  <a href="about.html"><i class="fa-solid fa-wrench"></i> Help Center</a>
 
   <!-- Wishlist Icon -->
   <div class="wishlist-icon-wrap">
@@ -292,9 +292,9 @@ footer{
     <span class="profile-icon-btn" id="profileBtn" title="My Account" onclick="toggleProfileMenu(event)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
     <div class="profile-dropdown" id="profileDropdown">
       <a href="profile.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; margin-right: 5px; vertical-align: text-bottom;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> My Profile</a>
-      <a href="orders.html">📦 My Orders</a>
-      <a href="transaction_history.php">💳 Transactions</a>
-      <a href="index.html">🚪 Logout</a>
+      <a href="orders.html"><i class="fa-solid fa-box"></i> My Orders</a>
+      <a href="orders.html"><i class="fa-solid fa-credit-card"></i> Transactions</a>
+      <a href="index.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
     </div>
   </div>
 </nav>
@@ -312,7 +312,7 @@ document.addEventListener('click', function(e) {
 </script>
 
 <div class="search-container">
-  <form action="SearchDisease.php" method="get">
+  <form action="plant_diseases_100.html" method="get">
       <input type="text" name="query" placeholder="Search Plants Diseases" required>
       <button type="submit">Search Plants</button>
   </form>
