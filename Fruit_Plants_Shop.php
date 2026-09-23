@@ -1,0 +1,2229 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fruit Plants Shop</title>
+  <style>
+body {
+  font-family: Arial, sans-serif;
+  background: transparent; /* 🔥 allow global background */
+}
+
+/* TITLE */
+h1 {
+  text-align: center;
+  background: rgba(76, 175, 80, 0.7);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* CONTAINER */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* 🔥 CARD IMPROVED */
+.plant-card {
+  width: 260px;
+  background: rgba(255,255,255,0.9);
+  margin: 10px;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+/* 🔥 HOVER EFFECT */
+.plant-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+/* IMAGE */
+.plant-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+/* 🔥 IMAGE ZOOM */
+.plant-card:hover img {
+  transform: scale(1.05);
+}
+
+/* TEXT */
+.plant-card h3 {
+  margin: 10px 0 5px;
+  color: #2e7d32;
+}
+
+.plant-card p {
+  font-size: 14px;
+  color: #555;
+  margin: 5px 0;
+}
+
+/* PRICE */
+.price {
+  color: #2e7d32;
+  font-weight: bold;
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+/* 🔥 BUTTON IMPROVED */
+button {
+  background: linear-gradient(45deg, #43a047, #66bb6a);
+  color: white;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: bold;
+
+  transition: all 0.3s ease;
+}
+
+/* BUTTON HOVER */
+button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* NAV LINKS */
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+/* SUCCESS MESSAGE */
+.success-msg {
+  background: #d4edda;
+  color: #155724;
+  padding: 12px;
+  margin: 15px auto;
+  border-radius: 8px;
+  text-align: center;
+  width: 60%;
+  font-weight: 500;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+</style>
+</head>
+<script>
+setTimeout(function(){
+    var msg = document.getElementById("cartMessage");
+    if(msg){
+        msg.style.transition = "opacity 0.5s ease";
+        msg.style.opacity = "0";
+        setTimeout(() => msg.remove(), 500);
+    }
+}, 3000); // 3000ms = 3 seconds
+</script>
+<?php include 'global_style.php'; ?>
+
+<body>
+<?php
+if(isset($_SESSION['cart_msg'])){
+    echo "<div id='cartMessage' class='success-msg'>".$_SESSION['cart_msg']."</div>";
+    unset($_SESSION['cart_msg']);
+}
+?>
+
+<!-- SEARCH BAR (SAME AS FLOWER) -->
+<div style="text-align: center; margin-top: 20px;">
+<form action="SearchFruit.php" method="get" style="display: inline-block;">
+  <input type="text" name="q" placeholder="Search fruit" required
+         style="padding: 10px; width: 250px; border: 1px solid #ccc; border-radius: 5px;">
+  <button type="submit"
+          style="padding: 15px 15px; background:#4CAF50; color:white; border:none; border-radius:5px;">
+    Search
+  </button>
+</form>
+</div>
+
+<!-- NAV BAR -->
+<style>
+.wishlist-icon-wrap {
+  position: absolute;
+  right: 72px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+}
+.wishlist-icon-btn {
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.6);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition: background 0.2s, transform 0.2s;
+  color: #fff;
+  text-decoration: none;
+  user-select: none;
+}
+.wishlist-icon-btn:hover {
+  background: rgba(255,255,255,0.35);
+  transform: scale(1.1);
+  color: #ff6b8a;
+}
+.profile-icon-wrap {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+}
+.profile-icon-btn {
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.6);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  transition: background 0.2s, transform 0.2s;
+  color: #fff;
+  text-decoration: none;
+}
+.profile-icon-btn:hover { background: rgba(255,255,255,0.35); transform: scale(1.1); }
+.profile-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  min-width: 150px;
+  overflow: hidden;
+  z-index: 1000;
+}
+.profile-dropdown a {
+  display: block;
+  padding: 12px 18px;
+  color: #2e7d32 !important;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  background: #fff !important;
+  transition: background 0.2s;
+  border-bottom: 1px solid #f0f0f0;
+}
+.profile-dropdown a:last-child { border-bottom: none; }
+.profile-dropdown a:hover { background: #e8f5e9 !important; }
+.profile-dropdown.open { display: block; }
+@keyframes dropFade {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.profile-dropdown { animation: dropFade 0.18s ease; }
+</style>
+<nav style="background-color: #4CAF50; padding: 10px; text-align: center; position: relative;">
+  <a href="index.php">🏠 Home</a>
+  <a href="Flower_Plants_Shop.php">🌸 Flower Plants</a>
+  <a href="Fruit_Plants_Shop.php">🍋 Fruit Plants</a>
+  <a href="Medicinal_Plants_Shop.php">🌿 Medicinal Plants</a>
+  <a href="air_purification_plants_detailed.php">💨 Air Purifying Plants</a>
+  <a href="cart.php">🛒 Cart</a>
+  <a href="help_center/help_center.php">🛠️ Help Center</a>
+
+
+  <!-- Wishlist Icon -->
+  <div class="wishlist-icon-wrap">
+    <a href="wishlist.php" class="wishlist-icon-btn" title="My Wishlist">
+      <span id="wishlist-badge" class="wishlist-badge" style="display:none;">0</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </a>
+  </div>
+
+  <!-- Profile Icon Top Right -->
+  <div class="profile-icon-wrap" id="profileWrap">
+
+    <span class="profile-icon-btn" id="profileBtn" title="My Account" onclick="toggleProfileMenu(event)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
+    <div class="profile-dropdown" id="profileDropdown">
+      <a href="profile.php"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; margin-right: 5px; vertical-align: text-bottom;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> My Profile</a>
+      <a href="orders.php">📦 My Orders</a>
+      <a href="transaction_history.php">💳 Transactions</a>
+      <a href="logout.php">🚪 Logout</a>
+    </div>
+  </div>
+</nav>
+<script>
+function toggleProfileMenu(e) {
+  e.stopPropagation();
+  document.getElementById('profileDropdown').classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  var wrap = document.getElementById('profileWrap');
+  if (wrap && !wrap.contains(e.target)) {
+    document.getElementById('profileDropdown').classList.remove('open');
+  }
+});
+</script>
+
+
+<h1>Fruit Plants - Online Shop</h1>
+
+<div class="container">
+<!-- 🔴 ALL YOUR FRUIT PLANTS ARE UNCHANGED BELOW -->
+<!-- 101 : Mango -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/mango.jpeg" alt="Mango">
+    <h3>Mango</h3>
+    <p>Tropical fruit tree producing sweet, juicy mangoes.</p>
+    <p class="price">₹300</p>
+    <input type="hidden" name="plant_id" value="101">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="101">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 102 : Banana -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/banana.jpeg" alt="Banana">
+    <h3>Banana</h3>
+    <p>Fast-growing plant with sweet bananas.</p>
+    <p class="price">₹150</p>
+    <input type="hidden" name="plant_id" value="102">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="102">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 103 : Papaya -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/papaya.jpeg" alt="Papaya">
+    <h3>Papaya</h3>
+    <p>Fruit-bearing tree rich in enzymes.</p>
+    <p class="price">₹200</p>
+    <input type="hidden" name="plant_id" value="103">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="103">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 104 : Guava -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/guava.jpeg" alt="Guava">
+    <h3>Guava</h3>
+    <p>Vitamin C rich hardy fruit.</p>
+    <p class="price">₹180</p>
+    <input type="hidden" name="plant_id" value="104">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="104">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 105 : Apple -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/apple.jpeg" alt="Apple">
+    <h3>Apple</h3>
+    <p>Cool climate crisp fruit.</p>
+    <p class="price">₹250</p>
+    <input type="hidden" name="plant_id" value="105">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="105">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 106 : Orange -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/orange.jpeg" alt="Orange">
+    <h3>Orange</h3>
+    <p>Juicy citrus fruit.</p>
+    <p class="price">₹200</p>
+    <input type="hidden" name="plant_id" value="106">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="106">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 107 : Sweet Lime -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/sweet_lime_mosambi.jpeg" alt="Sweet Lime">
+    <h3>Sweet Lime</h3>
+    <p>Mild sweet citrus fruit.</p>
+    <p class="price">₹140</p>
+    <input type="hidden" name="plant_id" value="107">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="107">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 108 : Lemon -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/lemon.jpeg" alt="Lemon">
+    <h3>Lemon</h3>
+    <p>Vitamin C rich citrus.</p>
+    <p class="price">₹120</p>
+    <input type="hidden" name="plant_id" value="108">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="108">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 109 : Pomegranate -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/pomegranate.jpeg" alt="Pomegranate">
+    <h3>Pomegranate</h3>
+    <p>Antioxidant rich fruit.</p>
+    <p class="price">₹220</p>
+    <input type="hidden" name="plant_id" value="109">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="109">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 110 : Grapes -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/grapes.jpeg" alt="Grapes">
+    <h3>Grapes</h3>
+    <p>Sweet climbing vine fruit.</p>
+    <p class="price">₹180</p>
+    <input type="hidden" name="plant_id" value="110">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="110">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+<!-- 111 : Watermelon -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/watermelon.jpeg" alt="Watermelon">
+    <h3>Watermelon</h3>
+    <p>Refreshing summer fruit.</p>
+    <p class="price">₹90</p>
+    <input type="hidden" name="plant_id" value="111">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="111">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 112 : Muskmelon -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/muskmelon.jpeg" alt="Muskmelon">
+    <h3>Muskmelon</h3>
+    <p>Sweet aromatic melon.</p>
+    <p class="price">₹100</p>
+    <input type="hidden" name="plant_id" value="112">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="112">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 113 : Pineapple -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/pineapple.jpeg" alt="Pineapple">
+    <h3>Pineapple</h3>
+    <p>Tangy tropical fruit.</p>
+    <p class="price">₹180</p>
+    <input type="hidden" name="plant_id" value="113">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="113">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 114 : Strawberry -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/strawberry.jpeg" alt="Strawberry">
+    <h3>Strawberry</h3>
+    <p>Sweet red berry.</p>
+    <p class="price">₹150</p>
+    <input type="hidden" name="plant_id" value="114">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="114">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 115 : Blueberry -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/blueberry.jpeg" alt="Blueberry">
+    <h3>Blueberry</h3>
+    <p>Antioxidant rich berry.</p>
+    <p class="price">₹350</p>
+    <input type="hidden" name="plant_id" value="115">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="115">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 116 : Raspberry -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/raspberry.jpeg" alt="Raspberry">
+    <h3>Raspberry</h3>
+    <p>Tangy red berry.</p>
+    <p class="price">₹300</p>
+    <input type="hidden" name="plant_id" value="116">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="116">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 117 : Blackberry -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/blackberry.jpeg" alt="Blackberry">
+    <h3>Blackberry</h3>
+    <p>Juicy black berry.</p>
+    <p class="price">₹280</p>
+    <input type="hidden" name="plant_id" value="117">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="117">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 118 : Cherry -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/cherry.jpeg" alt="Cherry">
+    <h3>Cherry</h3>
+    <p>Sweet small cherries.</p>
+    <p class="price">₹250</p>
+    <input type="hidden" name="plant_id" value="118">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="118">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 119 : Peach -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/peach.jpeg" alt="Peach">
+    <h3>Peach</h3>
+    <p>Soft juicy fruit.</p>
+    <p class="price">₹220</p>
+    <input type="hidden" name="plant_id" value="119">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="119">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 120 : Pear -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/pear.jpeg" alt="Pear">
+    <h3>Pear</h3>
+    <p>Sweet bell-shaped fruit.</p>
+    <p class="price">₹200</p>
+    <input type="hidden" name="plant_id" value="120">
+    <input type="hidden" name="source" value="fruit">
+    <button>Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="120">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 121 : Plum -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/plum.jpeg" alt="Plum">
+    <h3>Plum</h3>
+    <p>Sweet-sour deciduous fruit.</p>
+    <p class="price">₹180</p>
+    <input type="hidden" name="plant_id" value="121">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="121">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 122 : Apricot -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/apricot.jpeg" alt="Apricot">
+    <h3>Apricot</h3>
+    <p>Stone fruit with tart flavor.</p>
+    <p class="price">₹200</p>
+    <input type="hidden" name="plant_id" value="122">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="122">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 123 : Lychee -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/lychee.jpeg" alt="Lychee">
+    <h3>Lychee</h3>
+    <p>Juicy tropical fruit.</p>
+    <p class="price">₹300</p>
+    <input type="hidden" name="plant_id" value="123">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="123">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 124 : Jamun -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/jamun_black_plum.jpeg" alt="Jamun">
+    <h3>Jamun</h3>
+    <p>Indian summer fruit with health benefits.</p>
+    <p class="price">₹150</p>
+    <input type="hidden" name="plant_id" value="124">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="124">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 125 : Sapota -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/sapota_chikoo.jpeg" alt="Sapota">
+    <h3>Sapota (Chikoo)</h3>
+    <p>Sweet chikoo fruit plant.</p>
+    <p class="price">₹180</p>
+    <input type="hidden" name="plant_id" value="125">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="125">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 126 : Custard Apple -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/custard_apple_sitaphal.jpeg" alt="Custard Apple">
+    <h3>Custard Apple</h3>
+    <p>Creamy sweet fruit rich in iron.</p>
+    <p class="price">₹220</p>
+    <input type="hidden" name="plant_id" value="126">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="126">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 127 : Fig -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/fig.jpeg" alt="Fig">
+    <h3>Fig</h3>
+    <p>Mediterranean soft fruit.</p>
+    <p class="price">₹200</p>
+    <input type="hidden" name="plant_id" value="127">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="127">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 128 : Kiwi -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/kiwi.jpeg" alt="Kiwi">
+    <h3>Kiwi</h3>
+    <p>Tangy green fleshed fruit.</p>
+    <p class="price">₹320</p>
+    <input type="hidden" name="plant_id" value="128">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="128">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 129 : Dragon Fruit -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/dragon_fruit.jpeg" alt="Dragon Fruit">
+    <h3>Dragon Fruit</h3>
+    <p>Exotic cactus fruit plant.</p>
+    <p class="price">₹300</p>
+    <input type="hidden" name="plant_id" value="129">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="129">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 130 : Coconut -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/coconut.jpeg" alt="Coconut">
+    <h3>Coconut</h3>
+    <p>Tall palm tree producing coconuts.</p>
+    <p class="price">₹250</p>
+    <input type="hidden" name="plant_id" value="130">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="130">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 131 : Jackfruit -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/jackfruit.jpeg" alt="Jackfruit">
+    <h3>Jackfruit</h3>
+    <p>Large tropical fruit tree.</p>
+    <p class="price">₹300</p>
+    <input type="hidden" name="plant_id" value="131">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="131">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 132 : Starfruit -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/starfruit_carambola.jpeg" alt="Starfruit">
+    <h3>Starfruit</h3>
+    <p>Vitamin C rich star-shaped fruit.</p>
+    <p class="price">₹160</p>
+    <input type="hidden" name="plant_id" value="132">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="132">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 133 : Avocado -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/avocado.jpeg" alt="Avocado">
+    <h3>Avocado</h3>
+    <p>Creamy nutrient-rich fruit.</p>
+    <p class="price">₹400</p>
+    <input type="hidden" name="plant_id" value="133">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="133">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 134 : Mulberry -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/mulberry.jpeg" alt="Mulberry">
+    <h3>Mulberry</h3>
+    <p>Purple sweet berry tree.</p>
+    <p class="price">₹180</p>
+    <input type="hidden" name="plant_id" value="134">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="134">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 135 : Ber -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/ber_indian_jujube.jpeg" alt="Ber">
+    <h3>Ber (Indian Jujube)</h3>
+    <p>Indian jujube drought tolerant fruit.</p>
+    <p class="price">₹90</p>
+    <input type="hidden" name="plant_id" value="135">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="135">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 136 : Bael -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/bael.jpeg" alt="Bael">
+    <h3>Bael</h3>
+    <p>Medicinal aromatic fruit.</p>
+    <p class="price">₹150</p>
+    <input type="hidden" name="plant_id" value="136">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="136">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 137 : Tamarind -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/tamarind.jpeg" alt="Tamarind">
+    <h3>Tamarind</h3>
+    <p>Sour pod used in cooking.</p>
+    <p class="price">₹100</p>
+    <input type="hidden" name="plant_id" value="137">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="137">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 138 : Amla -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/amla_indian_gooseberry.jpeg" alt="Amla">
+    <h3>Amla (Indian Gooseberry)</h3>
+    <p>Indian gooseberry rich in vitamin C.</p>
+    <p class="price">₹120</p>
+    <input type="hidden" name="plant_id" value="138">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="138">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 139 : Passion Fruit -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/passion_fruit.jpeg" alt="Passion Fruit">
+    <h3>Passion Fruit</h3>
+    <p>Aromatic juicy pulp fruit.</p>
+    <p class="price">₹200</p>
+    <input type="hidden" name="plant_id" value="139">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="139">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 140 : Persimmon -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/persimmon.jpeg" alt="Persimmon">
+    <h3>Persimmon</h3>
+    <p>Sweet honey-textured fruit.</p>
+    <p class="price">₹220</p>
+    <input type="hidden" name="plant_id" value="140">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="140">
+    <input type="hidden" name="source" value="fruit">
+    <button>❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 141 : Cranberry -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/cranberry.jpeg" alt="Cranberry">
+    <h3>Cranberry</h3>
+    <p>Tart berry used in juices.</p>
+    <p class="price">₹320</p>
+    <input type="hidden" name="plant_id" value="141">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="141">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 142 : Date Palm -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/date_palm.jpeg" alt="Date Palm">
+    <h3>Date Palm</h3>
+    <p>Desert fruit tree with dates.</p>
+    <p class="price">₹350</p>
+    <input type="hidden" name="plant_id" value="142">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="142">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 143 : Olive -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/olive.jpeg" alt="Olive">
+    <h3>Olive</h3>
+    <p>Mediterranean fruit used for oil.</p>
+    <p class="price">₹300</p>
+    <input type="hidden" name="plant_id" value="143">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="143">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 144 : Quince -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/quince.jpeg" alt="Quince">
+    <h3>Quince</h3>
+    <p>Fragrant cooked fruit.</p>
+    <p class="price">₹210</p>
+    <input type="hidden" name="plant_id" value="144">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="144">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 145 : Loquat -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/loquat.jpeg" alt="Loquat">
+    <h3>Loquat</h3>
+    <p>Tangy-sweet subtropical fruit.</p>
+    <p class="price">₹180</p>
+    <input type="hidden" name="plant_id" value="145">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="145">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 146 : Rambutan -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/rambutan.jpeg" alt="Rambutan">
+    <h3>Rambutan</h3>
+    <p>Hairy tropical fruit.</p>
+    <p class="price">₹300</p>
+    <input type="hidden" name="plant_id" value="146">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="146">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 147 : Mangosteen -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/mangosteen.jpeg" alt="Mangosteen">
+    <h3>Mangosteen</h3>
+    <p>Premium sweet tropical fruit.</p>
+    <p class="price">₹400</p>
+    <input type="hidden" name="plant_id" value="147">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="147">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 148 : Soursop -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/soursop_graviola.jpeg" alt="Soursop">
+    <h3>Soursop</h3>
+    <p>Creamy tangy tropical fruit.</p>
+    <p class="price">₹320</p>
+    <input type="hidden" name="plant_id" value="148">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="148">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 149 : Breadfruit -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/breadfruit.jpeg" alt="Breadfruit">
+    <h3>Breadfruit</h3>
+    <p>Starchy tropical fruit.</p>
+    <p class="price">₹220</p>
+    <input type="hidden" name="plant_id" value="149">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="149">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 150 : Sugarcane -->
+<div class="plant-card">
+
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/sugarcane.jpeg" alt="Sugarcane">
+    <h3>Sugarcane</h3>
+    <p>Tall grass grown for juice.</p>
+    <p class="price">₹90</p>
+    <input type="hidden" name="plant_id" value="150">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="150">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+
+</div>
+
+<!-- 151 : Finger Lime -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/finger_lime.jpeg" alt="Finger Lime">
+    <h3>Finger Lime</h3>
+    <p>Citrus with caviar-like pulp.</p>
+    <p class="price">₹420</p>
+    <input type="hidden" name="plant_id" value="151">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="151">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 152 : Kumquat -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/kumquat.jpeg" alt="Kumquat">
+    <h3>Kumquat</h3>
+    <p>Small citrus eaten whole.</p>
+    <p class="price">₹190</p>
+    <input type="hidden" name="plant_id" value="152">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="152">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 153 : Cloudberry -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/cloudberry.jpeg" alt="Cloudberry">
+    <h3>Cloudberry</h3>
+    <p>Arctic berry for preserves.</p>
+    <p class="price">₹450</p>
+    <input type="hidden" name="plant_id" value="153">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="153">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 154 : Elderberry -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/elderberry.jpeg" alt="Elderberry">
+    <h3>Elderberry</h3>
+    <p>Medicinal dark berries.</p>
+    <p class="price">₹290</p>
+    <input type="hidden" name="plant_id" value="154">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="154">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 155 : Honeydew Melon -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/honeydew_melon.jpeg" alt="Honeydew Melon">
+    <h3>Honeydew Melon</h3>
+    <p>Sweet green-fleshed melon.</p>
+    <p class="price">₹120</p>
+    <input type="hidden" name="plant_id" value="155">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="155">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 156 : Cantaloupe -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/cantaloupe.jpeg" alt="Cantaloupe">
+    <h3>Cantaloupe</h3>
+    <p>Fragrant orange melon.</p>
+    <p class="price">₹110</p>
+    <input type="hidden" name="plant_id" value="156">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="156">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 157 : Prickly Pear -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/prickly_pear_cactus_fruit.jpeg" alt="Prickly Pear">
+    <h3>Prickly Pear</h3>
+    <p>Edible cactus fruit.</p>
+    <p class="price">₹180</p>
+    <input type="hidden" name="plant_id" value="157">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="157">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 158 : Miracle Fruit -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/miracle_fruit.jpeg" alt="Miracle Fruit">
+    <h3>Miracle Fruit</h3>
+    <p>Makes sour foods taste sweet.</p>
+    <p class="price">₹340</p>
+    <input type="hidden" name="plant_id" value="158">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="158">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 159 : Medlar -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/medlar.jpeg" alt="Medlar">
+    <h3>Medlar</h3>
+    <p>Old-fashioned soft fruit.</p>
+    <p class="price">₹200</p>
+    <input type="hidden" name="plant_id" value="159">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="159">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 160 : Jabuticaba -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/jabuticaba.jpeg" alt="Jabuticaba">
+    <h3>Jabuticaba</h3>
+    <p>Brazilian trunk-growing fruit.</p>
+    <p class="price">₹360</p>
+    <input type="hidden" name="plant_id" value="160">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="160">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 161 : Black Sapote -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/black_sapote.jpeg" alt="Black Sapote">
+    <h3>Black Sapote</h3>
+    <p>Chocolate pudding fruit.</p>
+    <p class="price">₹300</p>
+    <input type="hidden" name="plant_id" value="161">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="161">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 162 : White Sapote -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/white_sapote.jpeg" alt="White Sapote">
+    <h3>White Sapote</h3>
+    <p>Custard-like sweet fruit.</p>
+    <p class="price">₹280</p>
+    <input type="hidden" name="plant_id" value="162">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="162">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 163 : Rose Apple -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/rose_apple.jpeg" alt="Rose Apple">
+    <h3>Rose Apple</h3>
+    <p>Crisp rose-scented fruit.</p>
+    <p class="price">₹150</p>
+    <input type="hidden" name="plant_id" value="163">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="163">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 164 : Water Apple -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/water_apple.jpeg" alt="Water Apple">
+    <h3>Water Apple</h3>
+    <p>Juicy bell-shaped fruit.</p>
+    <p class="price">₹160</p>
+    <input type="hidden" name="plant_id" value="164">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="164">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 165 : Sea Buckthorn -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/sea_buckthorn.jpeg" alt="Sea Buckthorn">
+    <h3>Sea Buckthorn</h3>
+    <p>Vitamin-rich orange berries.</p>
+    <p class="price">₹330</p>
+    <input type="hidden" name="plant_id" value="165">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="165">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 166 : Kaffir Lime -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/kaffir_lime.jpeg" alt="Kaffir Lime">
+    <h3>Kaffir Lime</h3>
+    <p>Aromatic citrus plant.</p>
+    <p class="price">₹210</p>
+    <input type="hidden" name="plant_id" value="166">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="166">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 167 : Buddha’s Hand -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/buddhas_hand.jpeg" alt="Buddha’s Hand">
+    <h3>Buddha’s Hand</h3>
+    <p>Fragrant citron variety.</p>
+    <p class="price">₹480</p>
+    <input type="hidden" name="plant_id" value="167">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="167">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 168 : Huckleberry -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/huckleberry.jpeg" alt="Huckleberry">
+    <h3>Huckleberry</h3>
+    <p>Wild berry similar to blueberry.</p>
+    <p class="price">₹300</p>
+    <input type="hidden" name="plant_id" value="168">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="168">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 169 : Surinam Cherry -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/surinam_cherry.jpeg" alt="Surinam Cherry">
+    <h3>Surinam Cherry</h3>
+    <p>Small tart-sweet fruit.</p>
+    <p class="price">₹140</p>
+    <input type="hidden" name="plant_id" value="169">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="169">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 170 : Barbados Cherry -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/barbados_cherry_acerola.jpeg" alt="Barbados Cherry">
+    <h3>Barbados Cherry (Acerola)</h3>
+    <p>Vitamin C rich cherry.</p>
+    <p class="price">₹260</p>
+    <input type="hidden" name="plant_id" value="170">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="170">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 171 : Langsat -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/langsat.jpeg" alt="Langsat">
+    <h3>Langsat</h3>
+    <p>Translucent sweet tropical fruit.</p>
+    <p class="price">₹220</p>
+    <input type="hidden" name="plant_id" value="171">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="171">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 172 : Santol -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/santol.jpeg" alt="Santol">
+    <h3>Santol</h3>
+    <p>Round tropical fruit.</p>
+    <p class="price">₹200</p>
+    <input type="hidden" name="plant_id" value="172">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="172">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 173 : Snake Fruit -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/snake_fruit_salak.jpeg" alt="Snake Fruit">
+    <h3>Snake Fruit (Salak)</h3>
+    <p>Crunchy sweet-tart fruit.</p>
+    <p class="price">₹260</p>
+    <input type="hidden" name="plant_id" value="173">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="173">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 174 : Wood Apple -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/wood_apple.jpeg" alt="Wood Apple">
+    <h3>Wood Apple</h3>
+    <p>Aromatic hard-shell fruit.</p>
+    <p class="price">₹140</p>
+    <input type="hidden" name="plant_id" value="174">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="174">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 175 : Monk Fruit -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/monk_fruit.jpeg" alt="Monk Fruit">
+    <h3>Monk Fruit</h3>
+    <p>Natural zero-calorie sweetener.</p>
+    <p class="price">₹500</p>
+    <input type="hidden" name="plant_id" value="175">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="175">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 176 : Bilberry -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/bilberry.jpeg" alt="Bilberry">
+    <h3>Bilberry</h3>
+    <p>European wild berry.</p>
+    <p class="price">₹320</p>
+    <input type="hidden" name="plant_id" value="176">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="176">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 177 : Boysenberry -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/boysenberry.jpeg" alt="Boysenberry">
+    <h3>Boysenberry</h3>
+    <p>Hybrid sweet-tart berry.</p>
+    <p class="price">₹270</p>
+    <input type="hidden" name="plant_id" value="177">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="177">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 178 : Pineberry -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/pineberry.jpeg" alt="Pineberry">
+    <h3>Pineberry</h3>
+    <p>White strawberry variety.</p>
+    <p class="price">₹340</p>
+    <input type="hidden" name="plant_id" value="178">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="178">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 179 : Jambul -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/jambul_syzygium_species.jpeg" alt="Jambul">
+    <h3>Jambul</h3>
+    <p>Medicinal tropical berry.</p>
+    <p class="price">₹150</p>
+    <input type="hidden" name="plant_id" value="179">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="179">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 180 : Kei Apple -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/kei_apple.jpeg" alt="Kei Apple">
+    <h3>Kei Apple</h3>
+    <p>Tart African fruit.</p>
+    <p class="price">₹190</p>
+    <input type="hidden" name="plant_id" value="180">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="180">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 181 : Velvet Apple -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/velvet_apple.jpeg" alt="Velvet Apple">
+    <h3>Velvet Apple</h3>
+    <p>Soft velvety tropical fruit.</p>
+    <p class="price">₹350</p>
+    <input type="hidden" name="plant_id" value="181">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="181">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 182 : Feijoa -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/feijoa.jpeg" alt="Feijoa">
+    <h3>Feijoa</h3>
+    <p>Fragrant green tropical fruit.</p>
+    <p class="price">₹230</p>
+    <input type="hidden" name="plant_id" value="182">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="182">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 183 : Pawpaw -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/pawpaw_american_papaya.jpeg" alt="Pawpaw">
+    <h3>Pawpaw (American Papaya)</h3>
+    <p>American tropical-style fruit.</p>
+    <p class="price">₹260</p>
+    <input type="hidden" name="plant_id" value="183">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="183">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 184 : Red Banana -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/red_banana.jpeg" alt="Red Banana">
+    <h3>Red Banana</h3>
+    <p>Sweet red-skinned banana.</p>
+    <p class="price">₹190</p>
+    <input type="hidden" name="plant_id" value="184">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="184">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 185 : Golden Kiwi -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/golden_kiwi.jpeg" alt="Golden Kiwi">
+    <h3>Golden Kiwi</h3>
+    <p>Sweeter yellow kiwi.</p>
+    <p class="price">₹360</p>
+    <input type="hidden" name="plant_id" value="185">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="185">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 186 : Karonda -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/karonda.jpeg" alt="Karonda">
+    <h3>Karonda</h3>
+    <p>Indian tart berry fruit.</p>
+    <p class="price">₹110</p>
+    <input type="hidden" name="plant_id" value="186">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="186">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 187 : Governor Plum -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/governors_plum.jpeg" alt="Governor Plum">
+    <h3>Governor Plum</h3>
+    <p>Small tropical plum fruit.</p>
+    <p class="price">₹170</p>
+    <input type="hidden" name="plant_id" value="187">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="187">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 188 : Ceylon Gooseberry -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/ceylon_gooseberry.jpeg" alt="Ceylon Gooseberry">
+    <h3>Ceylon Gooseberry</h3>
+    <p>Tangy tropical gooseberry.</p>
+    <p class="price">₹210</p>
+    <input type="hidden" name="plant_id" value="188">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="188">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 189 : Madras Thorn -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/madras_thorn_jungle_jalebi.jpeg" alt="Madras Thorn">
+    <h3>Madras Thorn</h3>
+    <p>Tangy jungle jalebi fruit.</p>
+    <p class="price">₹110</p>
+    <input type="hidden" name="plant_id" value="189">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="189">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 190 : Nashpati -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/nashpati_asian_pear.jpeg" alt="Nashpati">
+    <h3>Nashpati (Asian Pear)</h3>
+    <p>Asian pear crisp fruit.</p>
+    <p class="price">₹240</p>
+    <input type="hidden" name="plant_id" value="190">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="190">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 191 : Longan -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/longan.jpeg" alt="Longan">
+    <h3>Longan</h3>
+    <p>Lychee family sweet fruit.</p>
+    <p class="price">₹280</p>
+    <input type="hidden" name="plant_id" value="191">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="191">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 192 : Nance -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/nance.jpeg" alt="Nance">
+    <h3>Nance</h3>
+    <p>Small tropical fruit.</p>
+    <p class="price">₹170</p>
+    <input type="hidden" name="plant_id" value="192">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="192">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 193 : Currants -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/currants_red_black.jpeg" alt="Currants">
+    <h3>Currants</h3>
+    <p>Small tart berries.</p>
+    <p class="price">₹260</p>
+    <input type="hidden" name="plant_id" value="193">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="193">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 194 : Carob -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/carob.jpeg" alt="Carob">
+    <h3>Carob</h3>
+    <p>Sweet pod fruit.</p>
+    <p class="price">₹200</p>
+    <input type="hidden" name="plant_id" value="194">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="194">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 195 : Ugli Fruit -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/ugli_fruit.jpeg" alt="Ugli Fruit">
+    <h3>Ugli Fruit</h3>
+    <p>Citrus hybrid fruit.</p>
+    <p class="price">₹240</p>
+    <input type="hidden" name="plant_id" value="195">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="195">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 196 : Tangerine -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/tangerine.jpeg" alt="Tangerine">
+    <h3>Tangerine</h3>
+    <p>Sweet easy-peel citrus.</p>
+    <p class="price">₹160</p>
+    <input type="hidden" name="plant_id" value="196">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="196">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 197 : Clementine -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/clementine.jpeg" alt="Clementine">
+    <h3>Clementine</h3>
+    <p>Seedless sweet citrus.</p>
+    <p class="price">₹170</p>
+    <input type="hidden" name="plant_id" value="197">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="197">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 198 : Mandarin -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/mandarin.jpeg" alt="Mandarin">
+    <h3>Mandarin</h3>
+    <p>Fragrant citrus fruit.</p>
+    <p class="price">₹165</p>
+    <input type="hidden" name="plant_id" value="198">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="198">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 199 : Medlar Tree -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/medlar.jpeg" alt="Medlar Tree">
+    <h3>Medlar Tree</h3>
+    <p>Soft apple-like fruit.</p>
+    <p class="price">₹200</p>
+    <input type="hidden" name="plant_id" value="199">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="199">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- 200 : Cloud Apple -->
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/fruit/cloud_apple.jpeg" alt="Cloud Apple">
+    <h3>Cloud Apple</h3>
+    <p>Exotic premium fruit.</p>
+    <p class="price">₹420</p>
+    <input type="hidden" name="plant_id" value="200">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="200">
+    <input type="hidden" name="source" value="fruit">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+</div>
+
+</body>
+</html>

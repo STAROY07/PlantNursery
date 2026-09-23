@@ -1,0 +1,416 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Indoor Plants</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f5fff5; }
+        h1 { text-align: center; color: green; }
+        .plant-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .plant-card {
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 250px;
+            padding: 15px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .plant-card img {
+            max-width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .plant-card h3 {
+            margin: 10px 0 5px;
+        }
+        .plant-card p {
+            margin: 5px 0;
+        }
+        .price {
+            color: green;
+            font-weight: bold;
+        }
+        .buy-button {
+            margin-top: 10px;
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <form action="SearchIndoor.php" method="GET" style="text-align:center; margin:20px;">
+    <input type="text" name="query" placeholder="Search Indoor Plants..."
+           style="padding:10px; width:300px; border-radius:5px; border:1px solid #ccc;">
+    <button type="submit" 
+            style="padding:10px 20px; border:none; background:#4CAF50; color:white; border-radius:5px;">
+        Search
+    </button>
+</form>
+
+    <nav style="background-color: #4CAF50; padding: 10px; text-align: center;">
+  <a href="index.html" style="margin: 10px; color: white; text-decoration: none;">Home</a>
+  <a href="flower_plants.html" style="margin: 10px; color: white; text-decoration: none;">Flower Plants</a>
+  <a href="fruit_plants.html" style="margin: 10px; color: white; text-decoration: none;">Fruit Plants</a>
+  <a href="medicinal_plants.html" style="margin: 10px; color: white; text-decoration: none;">Medicinal Plants</a>
+  <a href="air_purification_plants_detailed.html" style="margin: 10px; color: white; text-decoration: none;">Air Purifying Plants</a>
+  <a href="cart.html" style="margin: 10px; color: white; text-decoration: none;">Cart</a>
+  <a href="checkout.html" style="margin: 10px; color: white; text-decoration: none;">Checkout</a>
+</nav>
+
+    <h1>Indoor Plants Collection</h1>
+    <div class="plant-container">
+
+        <div class="plant-card">
+            <img src="areca_palm.jpg" alt="Areca Palm">
+            <h3>Areca Palm</h3>
+            <p>Air-purifying palm perfect for indoor spaces.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="snake_plant.jpg" alt="Snake Plant">
+            <h3>Snake Plant</h3>
+            <p>Hardy plant that survives in low light and purifies air.</p>
+            <p class="price">₹399</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="peace_lily.jpg" alt="Peace Lily">
+            <h3>Peace Lily</h3>
+            <p>Beautiful plant with white blooms; removes toxins from air.</p>
+            <p class="price">₹459</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="spider_plant.jpg" alt="Spider Plant">
+            <h3>Spider Plant</h3>
+            <p>Low maintenance and great air-cleaner.</p>
+            <p class="price">₹349</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="zz_plant.jpg" alt="ZZ Plant">
+            <h3>ZZ Plant</h3>
+            <p>Tolerant of low light and irregular watering.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="areca_palm.jpg" alt="Areca Palm">
+            <h3>Areca Palm</h3>
+            <p>Air-purifying palm perfect for indoor spaces.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="snake_plant.jpg" alt="Snake Plant">
+            <h3>Snake Plant</h3>
+            <p>Hardy plant that survives in low light and purifies air.</p>
+            <p class="price">₹399</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="peace_lily.jpg" alt="Peace Lily">
+            <h3>Peace Lily</h3>
+            <p>Beautiful plant with white blooms; removes toxins from air.</p>
+            <p class="price">₹459</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="spider_plant.jpg" alt="Spider Plant">
+            <h3>Spider Plant</h3>
+            <p>Low maintenance and great air-cleaner.</p>
+            <p class="price">₹349</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="zz_plant.jpg" alt="ZZ Plant">
+            <h3>ZZ Plant</h3>
+            <p>Tolerant of low light and irregular watering.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="areca_palm.jpg" alt="Areca Palm">
+            <h3>Areca Palm</h3>
+            <p>Air-purifying palm perfect for indoor spaces.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="snake_plant.jpg" alt="Snake Plant">
+            <h3>Snake Plant</h3>
+            <p>Hardy plant that survives in low light and purifies air.</p>
+            <p class="price">₹399</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="peace_lily.jpg" alt="Peace Lily">
+            <h3>Peace Lily</h3>
+            <p>Beautiful plant with white blooms; removes toxins from air.</p>
+            <p class="price">₹459</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="spider_plant.jpg" alt="Spider Plant">
+            <h3>Spider Plant</h3>
+            <p>Low maintenance and great air-cleaner.</p>
+            <p class="price">₹349</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="zz_plant.jpg" alt="ZZ Plant">
+            <h3>ZZ Plant</h3>
+            <p>Tolerant of low light and irregular watering.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="areca_palm.jpg" alt="Areca Palm">
+            <h3>Areca Palm</h3>
+            <p>Air-purifying palm perfect for indoor spaces.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="snake_plant.jpg" alt="Snake Plant">
+            <h3>Snake Plant</h3>
+            <p>Hardy plant that survives in low light and purifies air.</p>
+            <p class="price">₹399</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="peace_lily.jpg" alt="Peace Lily">
+            <h3>Peace Lily</h3>
+            <p>Beautiful plant with white blooms; removes toxins from air.</p>
+            <p class="price">₹459</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="spider_plant.jpg" alt="Spider Plant">
+            <h3>Spider Plant</h3>
+            <p>Low maintenance and great air-cleaner.</p>
+            <p class="price">₹349</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="zz_plant.jpg" alt="ZZ Plant">
+            <h3>ZZ Plant</h3>
+            <p>Tolerant of low light and irregular watering.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="areca_palm.jpg" alt="Areca Palm">
+            <h3>Areca Palm</h3>
+            <p>Air-purifying palm perfect for indoor spaces.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="snake_plant.jpg" alt="Snake Plant">
+            <h3>Snake Plant</h3>
+            <p>Hardy plant that survives in low light and purifies air.</p>
+            <p class="price">₹399</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="peace_lily.jpg" alt="Peace Lily">
+            <h3>Peace Lily</h3>
+            <p>Beautiful plant with white blooms; removes toxins from air.</p>
+            <p class="price">₹459</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="spider_plant.jpg" alt="Spider Plant">
+            <h3>Spider Plant</h3>
+            <p>Low maintenance and great air-cleaner.</p>
+            <p class="price">₹349</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="zz_plant.jpg" alt="ZZ Plant">
+            <h3>ZZ Plant</h3>
+            <p>Tolerant of low light and irregular watering.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="areca_palm.jpg" alt="Areca Palm">
+            <h3>Areca Palm</h3>
+            <p>Air-purifying palm perfect for indoor spaces.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="snake_plant.jpg" alt="Snake Plant">
+            <h3>Snake Plant</h3>
+            <p>Hardy plant that survives in low light and purifies air.</p>
+            <p class="price">₹399</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="peace_lily.jpg" alt="Peace Lily">
+            <h3>Peace Lily</h3>
+            <p>Beautiful plant with white blooms; removes toxins from air.</p>
+            <p class="price">₹459</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="spider_plant.jpg" alt="Spider Plant">
+            <h3>Spider Plant</h3>
+            <p>Low maintenance and great air-cleaner.</p>
+            <p class="price">₹349</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="zz_plant.jpg" alt="ZZ Plant">
+            <h3>ZZ Plant</h3>
+            <p>Tolerant of low light and irregular watering.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="areca_palm.jpg" alt="Areca Palm">
+            <h3>Areca Palm</h3>
+            <p>Air-purifying palm perfect for indoor spaces.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="snake_plant.jpg" alt="Snake Plant">
+            <h3>Snake Plant</h3>
+            <p>Hardy plant that survives in low light and purifies air.</p>
+            <p class="price">₹399</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="peace_lily.jpg" alt="Peace Lily">
+            <h3>Peace Lily</h3>
+            <p>Beautiful plant with white blooms; removes toxins from air.</p>
+            <p class="price">₹459</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="spider_plant.jpg" alt="Spider Plant">
+            <h3>Spider Plant</h3>
+            <p>Low maintenance and great air-cleaner.</p>
+            <p class="price">₹349</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="zz_plant.jpg" alt="ZZ Plant">
+            <h3>ZZ Plant</h3>
+            <p>Tolerant of low light and irregular watering.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="areca_palm.jpg" alt="Areca Palm">
+            <h3>Areca Palm</h3>
+            <p>Air-purifying palm perfect for indoor spaces.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="snake_plant.jpg" alt="Snake Plant">
+            <h3>Snake Plant</h3>
+            <p>Hardy plant that survives in low light and purifies air.</p>
+            <p class="price">₹399</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="peace_lily.jpg" alt="Peace Lily">
+            <h3>Peace Lily</h3>
+            <p>Beautiful plant with white blooms; removes toxins from air.</p>
+            <p class="price">₹459</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="spider_plant.jpg" alt="Spider Plant">
+            <h3>Spider Plant</h3>
+            <p>Low maintenance and great air-cleaner.</p>
+            <p class="price">₹349</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="zz_plant.jpg" alt="ZZ Plant">
+            <h3>ZZ Plant</h3>
+            <p>Tolerant of low light and irregular watering.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="areca_palm.jpg" alt="Areca Palm">
+            <h3>Areca Palm</h3>
+            <p>Air-purifying palm perfect for indoor spaces.</p>
+            <p class="price">₹499</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+        <div class="plant-card">
+            <img src="snake_plant.jpg" alt="Snake Plant">
+            <h3>Snake Plant</h3>
+            <p>Hardy plant that survives in low light and purifies air.</p>
+            <p class="price">₹399</p>
+            <a href="#" class="buy-button">Buy Now</a>
+        </div>
+    
+    </div>
+</body>
+</html>

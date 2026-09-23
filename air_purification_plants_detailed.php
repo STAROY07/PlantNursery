@@ -1,0 +1,1588 @@
+<?php
+session_start();
+
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Air Purifying Plants Shop</title>
+  <style>
+body {
+  font-family: Arial, sans-serif;
+  background: transparent; /* 🔥 show global background */
+}
+
+/* TITLE */
+h1 {
+  text-align: center;
+  background: rgba(76, 175, 80, 0.7);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* CONTAINER */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* 🔥 CARD IMPROVED */
+.plant-card {
+  width: 260px;
+  background: rgba(255,255,255,0.9);
+  margin: 10px;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+/* 🔥 HOVER EFFECT */
+.plant-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+/* IMAGE */
+.plant-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+/* 🔥 IMAGE ZOOM */
+.plant-card:hover img {
+  transform: scale(1.05);
+}
+
+/* TEXT */
+.plant-card h3 {
+  margin: 10px 0 5px;
+  color: #2e7d32;
+}
+
+.plant-card p {
+  font-size: 14px;
+  color: #555;
+  margin: 5px 0;
+}
+
+/* PRICE */
+.price {
+  color: #2e7d32;
+  font-weight: bold;
+  margin: 8px 0;
+  font-size: 16px;
+}
+
+/* 🔥 BUTTON IMPROVED */
+button {
+  background: linear-gradient(45deg, #43a047, #66bb6a);
+  color: white;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: bold;
+
+  transition: all 0.3s ease;
+}
+
+/* BUTTON HOVER */
+button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* NAV LINKS */
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+/* SUCCESS MESSAGE */
+.success-msg {
+  background: #d4edda;
+  color: #155724;
+  padding: 12px;
+  margin: 15px auto;
+  border-radius: 8px;
+  text-align: center;
+  width: 60%;
+  font-weight: 500;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+</style>
+</head>
+<script>
+setTimeout(function(){
+    var msg = document.getElementById("cartMessage");
+    if(msg){
+        msg.style.transition = "opacity 0.5s ease";
+        msg.style.opacity = "0";
+        setTimeout(() => msg.remove(), 500);
+    }
+}, 3000); // 3000ms = 3 seconds
+</script>
+
+<?php include 'global_style.php'; ?>
+<body>
+<?php
+if(isset($_SESSION['cart_msg'])){
+    echo "<div id='cartMessage' class='success-msg'>".$_SESSION['cart_msg']."</div>";
+    unset($_SESSION['cart_msg']);
+}
+?>
+
+
+<!-- SEARCH BAR -->
+<div style="text-align: center; margin-top: 20px;">
+<form action="SearchAirPurification.php" method="get" style="display: inline-block;">
+  <input type="text" name="q" placeholder="Search air purifying plant" required
+         style="padding: 10px; width: 250px; border: 1px solid #ccc; border-radius: 5px;">
+  <button type="submit"
+          style="padding: 15px 15px; background:#4CAF50; color:white; border:none; border-radius:5px;">
+    Search
+  </button>
+</form>
+</div>
+
+<!-- NAV BAR -->
+<style>
+.wishlist-icon-wrap {
+  position: absolute;
+  right: 72px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+}
+.wishlist-icon-btn {
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.6);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition: background 0.2s, transform 0.2s;
+  color: #fff;
+  text-decoration: none;
+  user-select: none;
+}
+.wishlist-icon-btn:hover {
+  background: rgba(255,255,255,0.35);
+  transform: scale(1.1);
+  color: #ff6b8a;
+}
+.profile-icon-wrap {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+}
+.profile-icon-btn {
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.6);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  transition: background 0.2s, transform 0.2s;
+  color: #fff;
+  text-decoration: none;
+}
+.profile-icon-btn:hover { background: rgba(255,255,255,0.35); transform: scale(1.1); }
+.profile-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  min-width: 150px;
+  overflow: hidden;
+  z-index: 1000;
+}
+.profile-dropdown a {
+  display: block;
+  padding: 12px 18px;
+  color: #2e7d32 !important;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  background: #fff !important;
+  transition: background 0.2s;
+  border-bottom: 1px solid #f0f0f0;
+}
+.profile-dropdown a:last-child { border-bottom: none; }
+.profile-dropdown a:hover { background: #e8f5e9 !important; }
+.profile-dropdown.open { display: block; }
+@keyframes dropFade {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.profile-dropdown { animation: dropFade 0.18s ease; }
+</style>
+<nav style="background-color: #4CAF50; padding: 10px; text-align: center; position: relative;">
+  <a href="index.php">🏠 Home</a>
+  <a href="Flower_Plants_Shop.php">🌸 Flower Plants</a>
+  <a href="Fruit_Plants_Shop.php">🍋 Fruit Plants</a>
+  <a href="Medicinal_Plants_Shop.php">🌿 Medicinal Plants</a>
+  <a href="air_purification_plants_detailed.php">💨 Air Purifying Plants</a>
+  <a href="cart.php">🛒 Cart</a>
+  <a href="help_center/help_center.php">🛠️ Help Center</a>
+
+  <!-- Wishlist Icon -->
+  <div class="wishlist-icon-wrap">
+    <a href="wishlist.php" class="wishlist-icon-btn" title="My Wishlist">
+      <span id="wishlist-badge" class="wishlist-badge" style="display:none;">0</span>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+    </a>
+  </div>
+
+  <!-- Profile Icon Top Right -->
+  <div class="profile-icon-wrap" id="profileWrap">
+    <span class="profile-icon-btn" id="profileBtn" title="My Account" onclick="toggleProfileMenu(event)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span>
+    <div class="profile-dropdown" id="profileDropdown">
+      <a href="profile.php"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; margin-right: 5px; vertical-align: text-bottom;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> My Profile</a>
+      <a href="orders.php">📦 My Orders</a>
+      <a href="transaction_history.php">💳 Transactions</a>
+      <a href="logout.php">🚪 Logout</a>
+    </div>
+  </div>
+</nav>
+<script>
+function toggleProfileMenu(e) {
+  e.stopPropagation();
+  document.getElementById('profileDropdown').classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  var wrap = document.getElementById('profileWrap');
+  if (wrap && !wrap.contains(e.target)) {
+    document.getElementById('profileDropdown').classList.remove('open');
+  }
+});
+</script>
+
+
+
+<h1>Air Purifying Plants - Online Shop</h1>
+
+<div class="container">
+<!-- 🔴 ALL YOUR AIR PURIFYING PLANTS ARE UNCHANGED BELOW -->
+<!-- AIR PURIFYING PLANTS 301–320 -->
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/neem.jpeg" alt="Neem">
+    <h3>Neem</h3>
+    <p>Bitter tree with antibacterial properties.</p>
+    <p class="price">₹70</p>
+    <input type="hidden" name="plant_id" value="301">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="301">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/tulsi.jpeg" alt="Tulsi">
+    <h3>Tulsi</h3>
+    <p>Holy basil for immunity.</p>
+    <p class="price">₹50</p>
+    <input type="hidden" name="plant_id" value="302">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="302">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/ashwagandha.jpeg" alt="Ashwagandha">
+    <h3>Ashwagandha</h3>
+    <p>Reduces stress.</p>
+    <p class="price">₹90</p>
+    <input type="hidden" name="plant_id" value="303">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="303">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/guduchi.jpeg" alt="Guduchi">
+    <h3>Guduchi</h3>
+    <p>Immunity booster.</p>
+    <p class="price">₹85</p>
+    <input type="hidden" name="plant_id" value="304">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="304">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/brahmi.jpeg" alt="Brahmi">
+    <h3>Brahmi</h3>
+    <p>Improves memory.</p>
+    <p class="price">₹80</p>
+    <input type="hidden" name="plant_id" value="305">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="305">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/aloe.jpeg" alt="Aloe Vera">
+    <h3>Aloe Vera</h3>
+    <p>Air purifier & skin care.</p>
+    <p class="price">₹60</p>
+    <input type="hidden" name="plant_id" value="306">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="306">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/turmeric.jpeg" alt="Turmeric">
+    <h3>Turmeric</h3>
+    <p>Anti-inflammatory.</p>
+    <p class="price">₹50</p>
+    <input type="hidden" name="plant_id" value="307">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="307">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/ginger.jpeg" alt="Ginger">
+    <h3>Ginger</h3>
+    <p>Digestive aid.</p>
+    <p class="price">₹40</p>
+    <input type="hidden" name="plant_id" value="308">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="308">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/garlic.jpeg" alt="Garlic">
+    <h3>Garlic</h3>
+    <p>Heart healthy.</p>
+    <p class="price">₹35</p>
+    <input type="hidden" name="plant_id" value="309">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="309">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/mint.jpeg" alt="Mint">
+    <h3>Mint</h3>
+    <p>Freshens air.</p>
+    <p class="price">₹40</p>
+    <input type="hidden" name="plant_id" value="310">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="310">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- AIR PURIFY PLANTS 311–320 -->
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/echinacea.jpeg" alt="Echinacea">
+    <h3>Echinacea</h3>
+    <p>Immune booster.</p>
+    <p class="price">₹140</p>
+    <input type="hidden" name="plant_id" value="311">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="311">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/ginseng.jpeg" alt="Ginseng">
+    <h3>Ginseng</h3>
+    <p>Energy booster.</p>
+    <p class="price">₹220</p>
+    <input type="hidden" name="plant_id" value="312">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="312">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/valerian.jpeg" alt="Valerian">
+    <h3>Valerian</h3>
+    <p>Sleep support.</p>
+    <p class="price">₹120</p>
+    <input type="hidden" name="plant_id" value="313">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="313">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/lavender.jpeg" alt="Lavender">
+    <h3>Lavender</h3>
+    <p>Calming aroma.</p>
+    <p class="price">₹90</p>
+    <input type="hidden" name="plant_id" value="314">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="314">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/chamomile.jpeg" alt="Chamomile">
+    <h3>Chamomile</h3>
+    <p>Relaxing herb.</p>
+    <p class="price">₹70</p>
+    <input type="hidden" name="plant_id" value="315">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="315">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/calendula.jpeg" alt="Calendula">
+    <h3>Calendula</h3>
+    <p>Used for mild skin inflammation and wound healing.</p>
+    <p class="price">₹75</p>
+    <input type="hidden" name="plant_id" value="316">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="316">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/rosemary.jpeg" alt="Rosemary">
+    <h3>Rosemary</h3>
+    <p>Aromatic herb used for memory and digestion.</p>
+    <p class="price">₹60</p>
+    <input type="hidden" name="plant_id" value="317">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="317">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/thyme.jpeg" alt="Thyme">
+    <h3>Thyme</h3>
+    <p>Used for respiratory complaints and as an antiseptic.</p>
+    <p class="price">₹55</p>
+    <input type="hidden" name="plant_id" value="318">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="318">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/oregano.jpeg" alt="Oregano">
+    <h3>Oregano</h3>
+    <p>Antimicrobial herb often used in respiratory remedies.</p>
+    <p class="price">₹65</p>
+    <input type="hidden" name="plant_id" value="319">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="319">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/sage.jpeg" alt="Sage">
+    <h3>Sage</h3>
+    <p>Traditionally used for sore throat and digestion.</p>
+    <p class="price">₹70</p>
+    <input type="hidden" name="plant_id" value="320">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="320">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- AIR PURIFY PLANTS 321–330 -->
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/basil.jpeg" alt="Basil">
+    <h3>Basil</h3>
+    <p>Anti-inflammatory herb used in traditional remedies.</p>
+    <p class="price">₹45</p>
+    <input type="hidden" name="plant_id" value="321">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="321">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/fenugreek.jpeg" alt="Fenugreek">
+    <h3>Fenugreek</h3>
+    <p>Used to lower blood sugar and improve digestion.</p>
+    <p class="price">₹50</p>
+    <input type="hidden" name="plant_id" value="322">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="322">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/fennel.jpeg" alt="Fennel">
+    <h3>Fennel</h3>
+    <p>Aids digestion and relieves bloating.</p>
+    <p class="price">₹35</p>
+    <input type="hidden" name="plant_id" value="323">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="323">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/cardamom.jpeg" alt="Cardamom">
+    <h3>Cardamom</h3>
+    <p>Used for digestion and fresh breath.</p>
+    <p class="price">₹80</p>
+    <input type="hidden" name="plant_id" value="324">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="324">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/cinnamon.jpeg" alt="Cinnamon">
+    <h3>Cinnamon</h3>
+    <p>Used for blood sugar control and circulation.</p>
+    <p class="price">₹60</p>
+    <input type="hidden" name="plant_id" value="325">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="325">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/clove.jpeg" alt="Clove">
+    <h3>Clove</h3>
+    <p>Analgesic and antiseptic herb.</p>
+    <p class="price">₹70</p>
+    <input type="hidden" name="plant_id" value="326">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="326">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/peppermint.jpeg" alt="Peppermint">
+    <h3>Peppermint</h3>
+    <p>Helps digestion and relieves headaches.</p>
+    <p class="price">₹55</p>
+    <input type="hidden" name="plant_id" value="327">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="327">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/licorice.jpeg" alt="Licorice">
+    <h3>Licorice</h3>
+    <p>Soothes sore throat and stomach ulcers.</p>
+    <p class="price">₹90</p>
+    <input type="hidden" name="plant_id" value="328">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="328">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/dandelion.jpeg" alt="Dandelion">
+    <h3>Dandelion</h3>
+    <p>Mild diuretic and liver tonic.</p>
+    <p class="price">₹50</p>
+    <input type="hidden" name="plant_id" value="329">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="329">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/yarrow.jpeg" alt="Yarrow">
+    <h3>Yarrow</h3>
+    <p>Used for wound healing and circulation.</p>
+    <p class="price">₹75</p>
+    <input type="hidden" name="plant_id" value="330">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="330">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- AIR PURIFY PLANTS 331–340 -->
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/nettle.jpeg" alt="Nettle">
+    <h3>Nettle</h3>
+    <p>Used for allergies and as a mineral-rich tonic.</p>
+    <p class="price">₹60</p>
+    <input type="hidden" name="plant_id" value="331">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="331">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/plantain.jpeg" alt="Plantain">
+    <h3>Plantain</h3>
+    <p>Leaves used for minor wounds and insect bites.</p>
+    <p class="price">₹40</p>
+    <input type="hidden" name="plant_id" value="332">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="332">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/passionflower.jpeg" alt="Passionflower">
+    <h3>Passionflower</h3>
+    <p>Used for anxiety and improving sleep quality.</p>
+    <p class="price">₹95</p>
+    <input type="hidden" name="plant_id" value="333">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="333">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/boswellia.jpeg" alt="Boswellia">
+    <h3>Boswellia</h3>
+    <p>Anti-inflammatory resin used for joint pain.</p>
+    <p class="price">₹180</p>
+    <input type="hidden" name="plant_id" value="334">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="334">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/centella.jpeg" alt="Centella">
+    <h3>Centella (Gotu Kola)</h3>
+    <p>Useful for skin health and cognitive support.</p>
+    <p class="price">₹85</p>
+    <input type="hidden" name="plant_id" value="335">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="335">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/horsetail.jpeg" alt="Horsetail">
+    <h3>Horsetail</h3>
+    <p>Rich in silica; supports hair, skin and bones.</p>
+    <p class="price">₹120</p>
+    <input type="hidden" name="plant_id" value="336">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="336">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/marshmallow.jpeg" alt="Marshmallow">
+    <h3>Marshmallow</h3>
+    <p>Soothing herb for throat and mucous membranes.</p>
+    <p class="price">₹100</p>
+    <input type="hidden" name="plant_id" value="337">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="337">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/meadowsweet.jpeg" alt="Meadowsweet">
+    <h3>Meadowsweet</h3>
+    <p>Traditional remedy for pain and digestion.</p>
+    <p class="price">₹95</p>
+    <input type="hidden" name="plant_id" value="338">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="338">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/eucalyptus.jpeg" alt="Eucalyptus">
+    <h3>Eucalyptus</h3>
+    <p>Used for respiratory relief and antiseptic uses.</p>
+    <p class="price">₹70</p>
+    <input type="hidden" name="plant_id" value="339">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="339">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/olive.jpeg" alt="Olive Leaf">
+    <h3>Olive (Leaf)</h3>
+    <p>Used for antioxidant and immune system support.</p>
+    <p class="price">₹110</p>
+    <input type="hidden" name="plant_id" value="340">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="340">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- AIR PURIFY PLANTS 341–350 -->
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/moringa.jpeg" alt="Moringa">
+    <h3>Moringa</h3>
+    <p>Highly nutritious leaves used as a tonic.</p>
+    <p class="price">₹90</p>
+    <input type="hidden" name="plant_id" value="341">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="341">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/sarsaparilla.jpeg" alt="Sarsaparilla">
+    <h3>Sarsaparilla</h3>
+    <p>Used for blood purification and skin health.</p>
+    <p class="price">₹140</p>
+    <input type="hidden" name="plant_id" value="342">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="342">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/juniper.jpeg" alt="Juniper">
+    <h3>Juniper</h3>
+    <p>Berries used for urinary and detox support.</p>
+    <p class="price">₹75</p>
+    <input type="hidden" name="plant_id" value="343">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="343">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/mustard.jpeg" alt="Mustard">
+    <h3>Mustard</h3>
+    <p>Used for congestion relief and muscle pain.</p>
+    <p class="price">₹35</p>
+    <input type="hidden" name="plant_id" value="344">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="344">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/cumin.jpeg" alt="Cumin">
+    <h3>Cumin</h3>
+    <p>Helps digestion and reduces gas.</p>
+    <p class="price">₹40</p>
+    <input type="hidden" name="plant_id" value="345">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="345">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/coriander.jpeg" alt="Coriander">
+    <h3>Coriander</h3>
+    <p>Useful in digestion and controlling cholesterol.</p>
+    <p class="price">₹35</p>
+    <input type="hidden" name="plant_id" value="346">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="346">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/amla.jpeg" alt="Amla">
+    <h3>Amla</h3>
+    <p>Rich in vitamin C; boosts immunity and hair health.</p>
+    <p class="price">₹70</p>
+    <input type="hidden" name="plant_id" value="347">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="347">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/haritaki.jpeg" alt="Haritaki">
+    <h3>Haritaki</h3>
+    <p>Supports digestion and detoxification.</p>
+    <p class="price">₹80</p>
+    <input type="hidden" name="plant_id" value="348">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="348">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/bibhitaki.jpeg" alt="Bibhitaki">
+    <h3>Bibhitaki</h3>
+    <p>One of Triphala herbs; improves gut health.</p>
+    <p class="price">₹75</p>
+    <input type="hidden" name="plant_id" value="349">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="349">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/shatavari.jpeg" alt="Shatavari">
+    <h3>Shatavari</h3>
+    <p>Supports female reproductive health.</p>
+    <p class="price">₹95</p>
+    <input type="hidden" name="plant_id" value="350">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="350">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- AIR PURIFY PLANTS 351–360 -->
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/curryleaf.jpeg" alt="Curryleaf">
+    <h3>Curryleaf</h3>
+    <p>Promotes hair health and digestion.</p>
+    <p class="price">₹50</p>
+    <input type="hidden" name="plant_id" value="351">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="351">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/comfrey.jpeg" alt="Comfrey">
+    <h3>Comfrey</h3>
+    <p>Traditionally used for bone and wound healing.</p>
+    <p class="price">₹110</p>
+    <input type="hidden" name="plant_id" value="352">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="352">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/guggul.jpeg" alt="Guggul">
+    <h3>Guggul</h3>
+    <p>Used for arthritis and weight support.</p>
+    <p class="price">₹100</p>
+    <input type="hidden" name="plant_id" value="353">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="353">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/nigella.jpeg" alt="Nigella">
+    <h3>Nigella</h3>
+    <p>Black seed for immunity and inflammation.</p>
+    <p class="price">₹85</p>
+    <input type="hidden" name="plant_id" value="354">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="354">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/sawpalmetto.jpeg" alt="Saw Palmetto">
+    <h3>Saw Palmetto</h3>
+    <p>Supports prostate and urinary health.</p>
+    <p class="price">₹190</p>
+    <input type="hidden" name="plant_id" value="355">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="355">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/berberis.jpeg" alt="Berberis">
+    <h3>Berberis</h3>
+    <p>Supports gut and metabolic health.</p>
+    <p class="price">₹95</p>
+    <input type="hidden" name="plant_id" value="356">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="356">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/andrographis.jpeg" alt="Andrographis">
+    <h3>Andrographis</h3>
+    <p>Used for immune and infection support.</p>
+    <p class="price">₹120</p>
+    <input type="hidden" name="plant_id" value="357">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="357">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/senna.jpeg" alt="Senna">
+    <h3>Senna</h3>
+    <p>Natural remedy for constipation.</p>
+    <p class="price">₹60</p>
+    <input type="hidden" name="plant_id" value="358">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="358">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/vetiver.jpeg" alt="Vetiver">
+    <h3>Vetiver</h3>
+    <p>Cooling root used in aromatherapy.</p>
+    <p class="price">₹130</p>
+    <input type="hidden" name="plant_id" value="359">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="359">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/ashoka.jpeg" alt="Ashoka">
+    <h3>Ashoka</h3>
+    <p>Used for gynecological and uterine health.</p>
+    <p class="price">₹150</p>
+    <input type="hidden" name="plant_id" value="360">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="360">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- AIR PURIFY PLANTS 361–370 -->
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/arjuna.jpeg" alt="Arjuna">
+    <h3>Arjuna</h3>
+    <p>Bark used in heart-related supporting therapies.</p>
+    <p class="price">₹160</p>
+    <input type="hidden" name="plant_id" value="361">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="361">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/bael.jpeg" alt="Bael">
+    <h3>Bael</h3>
+    <p>Used to treat diarrhea and support digestion.</p>
+    <p class="price">₹70</p>
+    <input type="hidden" name="plant_id" value="362">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="362">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/kokum.jpeg" alt="Kokum">
+    <h3>Kokum</h3>
+    <p>Used for digestion and as an anti-inflammatory.</p>
+    <p class="price">₹95</p>
+    <input type="hidden" name="plant_id" value="363">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="363">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/shankhpushpi.jpeg" alt="Shankhpushpi">
+    <h3>Shankhpushpi</h3>
+    <p>Traditional brain tonic for memory and calmness.</p>
+    <p class="price">₹120</p>
+    <input type="hidden" name="plant_id" value="364">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="364">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/gymnema.jpeg" alt="Gymnema">
+    <h3>Gymnema</h3>
+    <p>Supports healthy blood sugar levels.</p>
+    <p class="price">₹110</p>
+    <input type="hidden" name="plant_id" value="365">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="365">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/rauwolfia.jpeg" alt="Rauwolfia">
+    <h3>Rauwolfia</h3>
+    <p>Used for blood pressure and calming effects.</p>
+    <p class="price">₹180</p>
+    <input type="hidden" name="plant_id" value="366">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="366">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/pippali.jpeg" alt="Pippali">
+    <h3>Pippali</h3>
+    <p>Long pepper used to enhance digestion.</p>
+    <p class="price">₹90</p>
+    <input type="hidden" name="plant_id" value="367">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="367">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/kachnar.jpeg" alt="Kachnar">
+    <h3>Kachnar</h3>
+    <p>Used for thyroid and respiratory disorders.</p>
+    <p class="price">₹140</p>
+    <input type="hidden" name="plant_id" value="368">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="368">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/alstonia.jpeg" alt="Alstonia">
+    <h3>Alstonia</h3>
+    <p>Used traditionally for fever and digestion.</p>
+    <p class="price">₹130</p>
+    <input type="hidden" name="plant_id" value="369">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="369">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/bittergourd.jpeg" alt="Bittergourd">
+    <h3>Bittergourd</h3>
+    <p>Used for blood sugar management.</p>
+    <p class="price">₹60</p>
+    <input type="hidden" name="plant_id" value="370">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="370">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<!-- AIR PURIFY PLANTS 371–375 -->
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/triphala.jpeg" alt="Triphala">
+    <h3>Triphala</h3>
+    <p>Herbal blend for digestion and detox.</p>
+    <p class="price">₹95</p>
+    <input type="hidden" name="plant_id" value="371">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="371">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/kapikacchu.jpeg" alt="Kapikacchu">
+    <h3>Kapikacchu</h3>
+    <p>Supports muscle strength and vitality.</p>
+    <p class="price">₹200</p>
+    <input type="hidden" name="plant_id" value="372">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="372">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/holarrhena.jpeg" alt="Holarrhena">
+    <h3>Holarrhena</h3>
+    <p>Used for diarrhoea and intestinal worms.</p>
+    <p class="price">₹85</p>
+    <input type="hidden" name="plant_id" value="373">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="373">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/celery.jpeg" alt="Celery">
+    <h3>Celery</h3>
+    <p>Supports heart health and acts as a diuretic.</p>
+    <p class="price">₹45</p>
+    <input type="hidden" name="plant_id" value="374">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="374">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+<div class="plant-card">
+  <form action="add_to_cart.php" method="post">
+    <img src="Images/airpurify/periwinkle.jpeg" alt="Periwinkle">
+    <h3>Periwinkle</h3>
+    <p>Contains alkaloids used in modern medicine.</p>
+    <p class="price">₹150</p>
+    <input type="hidden" name="plant_id" value="375">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">Add to Cart</button>
+  </form>
+  <form action="add_to_wishlist.php" method="post">
+    <input type="hidden" name="plant_id" value="375">
+    <input type="hidden" name="source" value="airpurify">
+    <button type="submit">❤️ Add to Wishlist</button>
+  </form>
+</div>
+
+</div>
+
+</body>
+</html>
