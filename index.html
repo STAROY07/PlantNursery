@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Online Plant Nursery</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
 /* Reset */
@@ -15,7 +18,7 @@ html, body {
     padding: 0;
 }
 
-/* 🌿 Full Background */
+/* Full Background */
 body {
     font-family: 'Poppins', sans-serif;
     color: #333;
@@ -23,7 +26,7 @@ body {
     background-size: cover;
 }
 
-/* 🌿 Dark Overlay */
+/* Dark Overlay */
 body::before {
     content: "";
     position: fixed;
@@ -36,9 +39,9 @@ body::before {
     pointer-events: none;
 }
 
-/* 🔥 HEADER */
+/* HEADER */
 header {
-  padding: 20px 0;
+  padding: 22px 0;
   text-align: center;
   color: white;
   background: rgba(0, 80, 0, 0.7);
@@ -47,11 +50,17 @@ header {
 
 header h1 {
   margin: 0;
-  font-size: 2rem;
-  text-shadow: 0 0 10px rgba(255,255,255,0.6);
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 12px rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
 }
 
-/* 🔥 NAVBAR */
+/* NAVBAR */
 nav {
   display: flex;
   align-items: center;
@@ -65,15 +74,18 @@ nav {
 nav a {
   color: white;
   text-decoration: none;
-  padding: 15px 20px;
-  display: inline-block;
-  transition: 0.3s;
+  padding: 15px 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.3s ease;
   font-weight: 500;
+  font-size: 0.95rem;
 }
 
 nav a:hover {
   background: rgba(255,255,255,0.2);
-  border-radius: 5px;
+  border-radius: 6px;
 }
 
 /* LOGIN */
@@ -86,6 +98,9 @@ nav a:hover {
   background: none;
   border: none;
   cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
 }
 
 .dropdown {
@@ -93,17 +108,26 @@ nav a:hover {
   position: absolute;
   right: 0;
   background: white;
-  border-radius: 6px;
-  box-shadow: 0px 3px 10px rgba(0,0,0,0.2);
-  min-width: 120px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+  min-width: 150px;
   z-index: 10;
+  overflow: hidden;
 }
 
 .dropdown a {
-  display: block;
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
   text-decoration: none;
   color: #333;
+  font-size: 0.9rem;
+}
+
+.dropdown a i {
+  color: #2e7d32;
+  width: 16px;
 }
 
 .dropdown a:hover {
@@ -115,7 +139,7 @@ nav a:hover {
   display: block;
 }
 
-/* 🔥 HERO */
+/* HERO */
 .hero {
   height: 350px;
   display: flex;
@@ -127,60 +151,67 @@ nav a:hover {
 
 .hero h2 {
   font-size: 2.8rem;
-  font-weight: bold;
+  font-weight: 700;
   background: rgba(0, 100, 0, 0.6);
-  padding: 20px 40px;
-  border-radius: 12px;
+  padding: 20px 45px;
+  border-radius: 14px;
   backdrop-filter: blur(8px);
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-  animation: fadeIn 1.5s ease-in-out;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  animation: fadeIn 1.2s ease-in-out;
 }
 
-/* 🔥 SECTION */
+/* SECTION */
 .section {
   padding: 40px 20px;
   text-align: center;
 }
 
 .section h3 {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   font-size: 2rem;
+  font-weight: 600;
   color: white;
   text-shadow: 2px 2px 10px rgba(0,0,0,0.6);
 }
 
-/* 🔥 BUTTONS */
+/* BUTTONS */
 .buttons {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 15px;
+  gap: 18px;
 }
 
 .buttons a {
   background: linear-gradient(45deg, #43a047, #66bb6a);
   color: white;
-  padding: 15px 25px;
+  padding: 16px 28px;
   border-radius: 10px;
   text-decoration: none;
   font-weight: 600;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
   transition: all 0.3s ease;
 }
 
 .buttons a:hover {
-  transform: translateY(-5px) scale(1.05);
+  transform: translateY(-4px) scale(1.03);
   background: linear-gradient(45deg, #2e7d32, #4caf50);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
 }
 
 /* FOOTER */
 footer {
   text-align: center;
-  padding: 20px;
-  background-color: rgba(200, 230, 201, 0.8);
+  padding: 22px;
+  background-color: rgba(200, 230, 201, 0.85);
   font-size: 0.9rem;
-  color: #333;
-  margin-top: 50px;
+  color: #2e4d2e;
+  font-weight: 500;
+  margin-top: 60px;
 }
 
 /* MOBILE */
@@ -192,18 +223,18 @@ footer {
     font-size: 1.8rem;
     padding: 15px;
   }
-
   .buttons a {
-    width: 80%;
-    padding: 12px;
+    width: 85%;
+    justify-content: center;
+    padding: 14px;
   }
 }
 
-/* 🔥 ANIMATION */
+/* ANIMATION */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(25px);
   }
   to {
     opacity: 1;
@@ -215,25 +246,25 @@ footer {
 <body>
 
 <header>
-  <h1>🌿 Online Plant Nursery</h1>
+  <h1><i class="fa-solid fa-leaf" style="color: #a5d6a7;"></i> Online Plant Nursery</h1>
 </header>
 
 <nav>
-  <a href="index.html">🏠 Home</a>
-  <a href="plant_info_100.html">🦠 Diseases</a>
-  <a href="about.html">ℹ️ About</a>
-  <a href="FAQ.htm"> 💬 FAQ</a>
-  <a href="cart_page.html"> 🛒 Cart</a>
-  <a href="plants.html"> 🌿 Plants</a>
-  <a href="Register.html"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; margin-right: 5px; vertical-align: text-bottom;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> Login / Register</a>
+  <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+  <a href="plant_info_100.html"><i class="fa-solid fa-shield-virus"></i> Diseases</a>
+  <a href="about.html"><i class="fa-solid fa-circle-info"></i> About</a>
+  <a href="FAQ.htm"><i class="fa-solid fa-circle-question"></i> FAQ</a>
+  <a href="cart_page.html"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+  <a href="plants.html"><i class="fa-solid fa-seedling"></i> Plants</a>
+  <a href="Register.html"><i class="fa-solid fa-user"></i> Login / Register</a>
 
   <div class="login-menu">
-    <button class="login-btn">
-      <img src="Images/login_icon.jpeg" width="40" alt="Login" onerror="this.style.display='none'">
+    <button class="login-btn" title="Account Menu">
+      <img src="Images/login_icon.jpeg" width="38" height="38" style="border-radius: 50%; object-fit: cover;" alt="Account" onerror="this.style.display='none'">
     </button>
     <div class="dropdown">
-      <a href="Register.html">Register</a>
-      <a href="about.html">About Us</a>
+      <a href="Register.html"><i class="fa-solid fa-user-plus"></i> Register</a>
+      <a href="about.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
     </div>
   </div>
 </nav>
@@ -245,15 +276,15 @@ footer {
 <div class="section">
   <h3>Explore Our Plant Categories</h3>
   <div class="buttons">
-    <a href="plant_shop_100_plants.html">🌸 Flower & Fruit Plants</a>
-    <a href="indoor_plants.html">🌿 Indoor & Medicinal Plants</a>
-    <a href="plant_disease_info.html">🦠 Plant Diseases & Cure</a>
-    <a href="plants.html">💧 Purification Plants</a>
+    <a href="plant_shop_100_plants.html"><i class="fa-solid fa-spa"></i> Flower &amp; Fruit Plants</a>
+    <a href="indoor_plants.html"><i class="fa-solid fa-seedling"></i> Indoor &amp; Medicinal Plants</a>
+    <a href="plant_disease_info.html"><i class="fa-solid fa-notes-medical"></i> Plant Diseases &amp; Cure</a>
+    <a href="plants.html"><i class="fa-solid fa-wind"></i> Purification Plants</a>
   </div>
 </div>
 
 <footer>
-  © 2025 Online Plant Nursery. All rights reserved.
+  &copy; 2025 Online Plant Nursery. All rights reserved.
 </footer>
 
 </body>

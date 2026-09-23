@@ -9,6 +9,7 @@ session_start();
   <title>Online Plant Nursery</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
 body {
@@ -198,29 +199,27 @@ footer {
 <body>
 
 <header>
-  <h1>🌿 Online Plant Nursery</h1>
+  <h1><i class="fa-solid fa-leaf" style="color: #a5d6a7; margin-right: 8px;"></i> Online Plant Nursery</h1>
 </header>
 
 <nav>
-  <a href="index.php">🏠 Home</a>
-  <a href="plant_diseases_100.php">🦠 Diseases</a>
-  <a href="about.html">ℹ️ About</a>
-  <a href="contact.php"> 💬 FeedBack</a>
-  <a href="cart.php"> 🛒 Cart</a>
-  <a href="help_center/help_center.php"> 🛠️ Help Center</a>
-  <a href="profile.php"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; margin-right: 5px; vertical-align: text-bottom;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> My Profile</a>
-  <a href="orders.php">📦 My Orders</a>
-  <a href="track_order.php">🚚Track Order</a>
-
-
+  <a href="index.php"><i class="fa-solid fa-house" style="margin-right: 6px;"></i> Home</a>
+  <a href="plant_diseases_100.php"><i class="fa-solid fa-shield-virus" style="margin-right: 6px;"></i> Diseases</a>
+  <a href="about.html"><i class="fa-solid fa-circle-info" style="margin-right: 6px;"></i> About</a>
+  <a href="contact.php"><i class="fa-solid fa-comments" style="margin-right: 6px;"></i> Feedback</a>
+  <a href="cart.php"><i class="fa-solid fa-cart-shopping" style="margin-right: 6px;"></i> Cart</a>
+  <a href="help_center/help_center.php"><i class="fa-solid fa-circle-question" style="margin-right: 6px;"></i> Help Center</a>
+  <a href="profile.php"><i class="fa-solid fa-user" style="margin-right: 6px;"></i> My Profile</a>
+  <a href="orders.php"><i class="fa-solid fa-box" style="margin-right: 6px;"></i> My Orders</a>
+  <a href="track_order.php"><i class="fa-solid fa-truck" style="margin-right: 6px;"></i> Track Order</a>
 
   <div class="login-menu">
     <button class="login-btn">
       <img src="Images/login_icon.jpeg" width="40" alt="Login">
     </button>
     <div class="dropdown">
-      <a href="transaction_history.php">Transactions</a>
-      <a href="logout.php">Logout</a>
+      <a href="transaction_history.php"><i class="fa-solid fa-receipt" style="margin-right: 6px;"></i> Transactions</a>
+      <a href="logout.php"><i class="fa-solid fa-right-from-bracket" style="margin-right: 6px;"></i> Logout</a>
     </div>
   </div>
 </nav>
@@ -232,17 +231,16 @@ footer {
 <div class="section">
   <h3>Explore Our Plant Categories</h3>
   <div class="buttons">
-    <a href="Flower_Plants_Shop.php">🌸 Flower Plants</a>
-    <a href="Fruit_Plants_Shop.php">🍊 Fruit Plants</a>
-    <a href="Medicinal_Plants_Shop.php">🌿 Medicinal Plants</a>
-    <a href="plant_diseases_100.php">🦠 Plant Diseases & Cure</a>
-    <a href="air_purification_plants_detailed.php">💧 Purification Plants</a>
-
+    <a href="Flower_Plants_Shop.php"><i class="fa-solid fa-spa" style="margin-right: 8px;"></i> Flower Plants</a>
+    <a href="Fruit_Plants_Shop.php"><i class="fa-solid fa-apple-whole" style="margin-right: 8px;"></i> Fruit Plants</a>
+    <a href="Medicinal_Plants_Shop.php"><i class="fa-solid fa-seedling" style="margin-right: 8px;"></i> Medicinal Plants</a>
+    <a href="plant_diseases_100.php"><i class="fa-solid fa-notes-medical" style="margin-right: 8px;"></i> Plant Diseases &amp; Cure</a>
+    <a href="air_purification_plants_detailed.php"><i class="fa-solid fa-wind" style="margin-right: 8px;"></i> Purification Plants</a>
   </div>
 </div>
 
 <footer>
-  © 2025 Online Plant Nursery. All rights reserved.
+  &copy; 2025 Online Plant Nursery. All rights reserved.
 </footer>
 
 </body>
